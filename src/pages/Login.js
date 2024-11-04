@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({ onLogin }) {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
@@ -17,8 +17,8 @@ export default function Login({ onLogin }) {
             return;
         }
 
-        if (username === getUserInfo.username && password === getUserInfo.password) {
-            const userInfo = { username: getUserInfo.username };
+        if (email === getUserInfo.email && password === getUserInfo.password) {
+            const userInfo = { email: getUserInfo.email };
             onLogin(userInfo); // Set login state in App
             navigate("/mypage");
         } else {
@@ -31,8 +31,8 @@ export default function Login({ onLogin }) {
             <h2>Login</h2>
             <form onSubmit={handleLoginSubmit}>
                 <div className="mb-3">
-                    <label className="form-label">Username</label>
-                    <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <label className="form-label">Email Address</label>
+                    <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Password</label>
