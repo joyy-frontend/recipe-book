@@ -32,17 +32,18 @@ export default function App(){
 
   return(
     <BrowserRouter>
-      <Master isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login onLogin={handleLogin} />} />
-        <Route path="register" element={<Register />} />
-        <Route path="mypage" element={isLoggedIn ? <Mypage /> : <Login onLogin={handleLogin} />} />
-        <Route path="recipes" element={<RecipeList />}>
-          <Route path=":id" element={<RecipeDetail />} />
-          <Route path="new" element={<RecipePost />} />
-        </Route>
+        <Route path="/" element={<Master isLoggedIn={isLoggedIn} onLogout={handleLogout} />}>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login onLogin={handleLogin} />} />
+          <Route path="register" element={<Register />} />
+          <Route path="mypage" element={isLoggedIn ? <Mypage /> : <Login onLogin={handleLogin} />} />
+          <Route path="recipes" element={<RecipeList />}>
+            <Route path=":id" element={<RecipeDetail />} />
+            <Route path="new" element={<RecipePost />} />
+          </Route>
         <Route path="*" element={<Nopage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
