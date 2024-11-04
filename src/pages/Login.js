@@ -1,45 +1,36 @@
-import { useState } from "react";
+import Formcomponent from "../components/Formcomponent";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ onLogin }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+export default function Login({ user, userChange, handleLogin }) {
     const navigate = useNavigate();
+
+    const LoginForm = {
+        inputs: [
+            { type: 'email', name: 'email', placeholder: 'Enter your email', value: user.email, changeFunc: userChange },
+            { type: 'password', name: 'password', placeholder: 'Enter your password', value: user.password, changeFunc: userChange }
+        ],
+        buttons: [{ type: 'submit', name: 'btn', label: 'login' }]
+    };
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
 
-        const getUserInfo = JSON.parse(localStorage.getItem("user"));
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        if (!getUserInfo) {
-            alert("Not valid user. Please register first");
-            navigate("/register");
-            return;
-        }
+        const loginUser = users.find(u => u.email === user.email && u.password === user.password);
 
-        if (email === getUserInfo.email && password === getUserInfo.password) {
-            const userInfo = { email: getUserInfo.email };
-            onLogin(userInfo); // Set login state in App
+        if (loginUser) {
+            handleLogin(loginUser);
             navigate("/mypage");
         } else {
-            alert("Invalid username or password");
+            alert("Invalid email or password.");
         }
     };
 
     return (
-        <div className="container mt-5">
-            <h2>Login</h2>
-            <form onSubmit={handleLoginSubmit}>
-                <div className="mb-3">
-                    <label className="form-label">Email Address</label>
-                    <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Password</label>
-                    <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <button type="submit" className="btn btn-primary">Login</button>
-            </form>
-        </div>
+        <>
+            <h1>Login</h1>
+            <Formcomponent elements={LoginForm} onSubmit={handleLoginSubmit} />
+        </>
     );
 }

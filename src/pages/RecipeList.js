@@ -1,5 +1,5 @@
-export default function RecipeList(){
-    return(
-        <h1>RecipeList</h1>
-    )
+export default function RecipeList() {
+    return (
+        <h1>Recipes</h1>
+    );
 }

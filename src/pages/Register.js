@@ -1,23 +1,25 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Formcomponent from "../components/Formcomponent";
 
-export default function Register() {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+export default function Register({ user, userChange, addUser }) {
     const navigate = useNavigate();
+    
+    const RegisterForm = 
+        {inputs: [
+            { type: 'text', name: 'fname', placeholder: 'Enter your first name', value: user.fname, changeFunc: userChange },
+            { type: 'text', name: 'lname', placeholder: 'Enter your last name', value: user.lname, changeFunc: userChange },
+            { type: 'text', name: 'username', placeholder: 'Enter your user name', value: user.username, changeFunc: userChange },
+            { type: 'email', name: 'email', placeholder: 'Enter your email', value: user.email, changeFunc: userChange }, 
+            { type: 'password', name: 'password', placeholder: 'Enter your password', value: user.password, changeFunc: userChange }
+        ],
+        buttons: [{ type: 'submit', name: 'btn', label: 'Sign up' }]
+    };
 
     const handleRegister = (e) => {
         e.preventDefault();
 
-        if (firstName && lastName && email && username && password) {
-            const newUser = { firstName, lastName, email, username, password };
-            
-            localStorage.setItem("user", JSON.stringify(newUser));
-
-            alert("Signed up successfully!");
+        if (user.fname && user.lname && user.email && user.username && user.password) {
+            addUser(user); // Add user to the users array in App.js
             navigate("/login");
         } else {
             alert("Please fill out the form");
@@ -25,31 +27,9 @@ export default function Register() {
     };
 
     return (
-        <div className="container mt-5">
-            <h2>Register</h2>
-            <form onSubmit={handleRegister}>
-                <div className="mb-3">
-                    <label className="form-label">First Name</label>
-                    <input type="text" className="form-control" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Last Name</label>
-                    <input type="text" className="form-control" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Email</label>
-                    <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Username</label>
-                    <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Password</label>
-                    <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <button type="submit" className="btn btn-primary">Register</button>
-            </form>
-        </div>
+        <>
+            <h1>Register</h1>
+            <Formcomponent elements={RegisterForm} onSubmit={handleRegister} />
+        </>
     );
 }

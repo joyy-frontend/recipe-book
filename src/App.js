@@ -1,50 +1,113 @@
-import { useState, useEffect } from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Master from "./pages/Master";
-import Mypage from "./pages/Mypage";
 import Home from "./pages/Home";
-import RecipeList from "./pages/RecipeList";
-import RecipeDetail from "./pages/RecipeDetail";
-import RecipePost from "./pages/RecipePost";
-import Nopage from "./pages/Nopage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import RecipeList from "./pages/RecipeList";
+import RecipeDetail from "./pages/RecipeDetail";
+import Mypage from "./pages/Mypage";
+import RecipePost from "./pages/RecipePost";
 
-export default function App(){
+export default function App() {
+  const initialUserState = {
+    fname: "",
+    lname: "",
+    email: "",
+    username: "",
+    password: "",
+  };
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(initialUserState);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const loggedInStatus = JSON.parse(localStorage.getItem("loggedIn"));
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const storedUser =
+      JSON.parse(localStorage.getItem("user")) || initialUserState;
+
     setIsLoggedIn(loggedInStatus || false);
+    setUsers(storedUsers);
+    setUser(storedUser);
   }, []);
 
-  const handleLogin = (userInfo) => {
+  const handleLogin = (loginUser) => {
     setIsLoggedIn(true);
+    setUser(loginUser); // Set the logged-in user's data
     localStorage.setItem("loggedIn", JSON.stringify(true));
-    localStorage.setItem("userInfo", JSON.stringify(userInfo)); // Store user info if needed
+    localStorage.setItem("user", JSON.stringify(loginUser)); // Store only the logged-in user in local storage
+    alert("Login successfully!");
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setUser(initialUserState); // Reset user state on logout
     localStorage.removeItem("loggedIn");
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem("user");
+    alert("Logged out successfully!");
   };
 
-  return(
+  const userChange = (key, newVal) => {
+    setUser((prevObj) => ({ ...prevObj, [key]: newVal }));
+  };
+
+  const addUser = (newUser) => {
+    setUsers((prevUsers) => {
+      const updatedUsers = [...prevUsers, newUser];
+      localStorage.setItem("users", JSON.stringify(updatedUsers)); // Store updated array in local storage
+      return updatedUsers;
+    });
+    alert("User registered successfully!");
+  };
+
+  return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Master isLoggedIn={isLoggedIn} onLogout={handleLogout} />}>
+        <Route
+          path="/"
+          element={
+            <Master
+              isLoggedIn={isLoggedIn}
+              user={user}
+              onLogout={handleLogout}
+            />
+          }
+        >
           <Route index element={<Home />} />
-          <Route path="login" element={<Login onLogin={handleLogin} />} />
-          <Route path="register" element={<Register />} />
-          <Route path="mypage" element={isLoggedIn ? <Mypage /> : <Login onLogin={handleLogin} />} />
+          <Route
+            path="login"
+            element={
+              <Login
+                user={user}
+                userChange={userChange}
+                handleLogin={handleLogin}
+              />
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <Register user={user} userChange={userChange} addUser={addUser} />
+            }
+          />
+          <Route
+            path="mypage"
+            element={
+              isLoggedIn ? (
+                <Mypage user={user} />
+              ) : (
+                <Login handleLogin={handleLogin} />
+              )
+            }
+          />
           <Route path="recipes" element={<RecipeList />}>
             <Route path=":id" element={<RecipeDetail />} />
             <Route path="new" element={<RecipePost />} />
           </Route>
-        <Route path="*" element={<Nopage />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
