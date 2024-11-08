@@ -24,8 +24,8 @@ export default function RecipePost() {
         setDate(today);    
     }, [])
     return (
-        <>
-            <h1>RecipePost</h1>
+        <div className="container mt-5">
+            <h1 className="text-center mb-4">RecipePost</h1>
             <form className="form-container" onSubmit={handleSubmit}>
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -85,6 +85,6 @@ export default function RecipePost() {
                 </div>
                 <button type="submit" class="btn btn-primary">{recipeId ? "Update Recipe" : "Create Recipe"}</button>
             </form>
-        </>
+        </div>
     );
 }

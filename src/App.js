@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RecipeList from "./pages/RecipeList";
-import RecipeDetail from "./pages/RecipeDetail";
 import Mypage from "./pages/Mypage";
 import RecipePost from "./pages/RecipePost";
 
