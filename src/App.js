@@ -102,10 +102,9 @@ export default function App() {
               )
             }
           />
-          <Route path="recipes" element={<RecipeList />}>
-            <Route path=":id" element={<RecipeDetail />} />
-            <Route path="new" element={<RecipePost />} />
-          </Route>
+          <Route path="recipes" element={<RecipeList />} />
+          <Route path="recipes/:recipeId" element={<RecipePost />} />
+          <Route path="recipes/new" element={<RecipePost />} />
         </Route>
       </Routes>
     </BrowserRouter>
