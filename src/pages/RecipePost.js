@@ -7,9 +7,9 @@ export default function RecipePost() {
     const [recipe, setRecipe] = useState({ title: '', user: '', content: '', category: '', image: '' });
     const handleSubmit = () => {
         if(recipeId) {
-            // 기존 레시피 정보 수정
+            // 기존 레시피 정보 수정 (edit)
         } else {
-            // 새로운 레시피 생성
+            // 새로운 레시피 생성 (create)
         }
     }
 
@@ -25,7 +25,7 @@ export default function RecipePost() {
     }, [])
     return (
         <div className="container mt-5">
-            <h1 className="text-center mb-4">RecipePost</h1>
+            <h1 className="text-center mb-4">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
             <form className="form-container" onSubmit={handleSubmit}>
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
