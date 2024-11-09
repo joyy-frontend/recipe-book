@@ -95,7 +95,7 @@ export default function App() {
             path="mypage"
             element={
               isLoggedIn ? (
-                <Mypage user={user} />
+                <Mypage user={user} userChange={userChange}/>
               ) : (
                 <Login handleLogin={handleLogin} />
               )

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
+import "../Custom.css";
 
 export default function Navbar({ isLoggedIn, onLogout }) {
   return (
-    <nav className="navbar navbar-expand-sm navbar-light bg-light">
+    <nav className="navbar navbar-expand-sm navbar-light">
       <div className="container">
-        <div className="collapse navbar-collapse" id="collapsibleNavId">
           <ul className="navbar-nav me-auto mt-2 mt-lg-0">
           <li className="nav-item">
                     <Link className="nav-link" to="/">Home</Link>
@@ -32,7 +32,6 @@ export default function Navbar({ isLoggedIn, onLogout }) {
                     </>
                 )}
           </ul>
-        </div>
       </div>
     </nav>
   );
