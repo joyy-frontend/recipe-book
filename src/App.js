@@ -61,6 +61,10 @@ export default function App() {
     alert("User registered successfully!");
   };
 
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);  
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -95,7 +99,7 @@ export default function App() {
             path="mypage"
             element={
               isLoggedIn ? (
-                <Mypage user={user} userChange={userChange}/>
+                <Mypage user={user} userChange={userChange} updateUser={updateUser}/>
               ) : (
                 <Login handleLogin={handleLogin} />
               )

@@ -3,25 +3,36 @@ import Formcomponent from "../components/Formcomponent";
 import defaultProfile from "../assets/images/default-profile.png"; 
 import "../Custom.css";
 
-export default function Mypage({ user, userChange }) {
+export default function Mypage({ user, userChange, updateUser }) {
     const [isEditing, setIsEditing] = useState(false);
     const [profileImage, setProfileImage] = useState(user?.profileImage || defaultProfile);
+
+    useEffect(() => {
+        setProfileImage(user?.profileImage || defaultProfile);
+    }, [user]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setProfileImage(reader.result);
+                const imageUrl = reader.result;
+                setProfileImage(imageUrl);
                 
+                // users 배열 업데이트
                 const users = JSON.parse(localStorage.getItem('users')) || [];
                 const updatedUsers = users.map(u => {
                     if (u.email === user.email) {
-                        return { ...u, profileImage: reader.result };
+                        return { ...u, profileImage: imageUrl };
                     }
                     return u;
                 });
                 localStorage.setItem('users', JSON.stringify(updatedUsers));
+
+                // 현재 user 업데이트
+                const updatedUser = { ...user, profileImage: imageUrl };
+                updateUser(updatedUser);  // App.js에서 전달받은 함수로 user 상태 업데이트
+                localStorage.setItem('user', JSON.stringify(updatedUser));
             };
             reader.readAsDataURL(file);
         }
