@@ -1,41 +1,79 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import pizza from '../assets/images/pizza.png';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import pizza from "../assets/images/pizza.png";
+import logoImage from "../assets/images/logo.png";
 
 const AllRecipes = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    fetch("/dummy.json")
+      .then((response) => response.json())
+      .then((data) => setRecipes(data))
+      .catch((error) => console.error("Error loading recipes:", error));
+  }, []);
+
+  console.log(
+    recipes.map((recipe) => {
+        return recipe.image;
+    })
+);
+
   return (
-     <div class="container py-5">
-    <h2 class="text-center mb-4">All Recipes</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="recipe-card">
-          <Link to='/recipes/1'>
+    <div className="container py-5">
+      <h2 className="text-center mb-4">All Recipes</h2>
+      <div className="row g-4">
+        {recipes.map((recipe) => (
+          <div className="col-md-4" key={recipe.id}>
+            <div className="recipe-card">
+              <Link to={`/recipes/${recipe.id}`}>
+                <img
+                  src={recipe.image
+                    ? require(`../assets/images/${recipe.image}`)
+                    : logoImage}
+                  alt={recipe.title}
+                  style={{ maxWidth: "250px" }}
+                />
+
+                <div>
+                  <h5 className="card-title">{recipe.title}</h5>
+                  <p className="card-text">Recipe by {recipe.author}</p>
+                  <p className="card-text">
+                    <strong>Category:</strong> {recipe.category}
+                  </p>
+                  <p className="card-text">
+                    <strong>Likes:</strong> {recipe.likes}
+                  </p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        ))}
+
+        <div className="col-md-4">
+          <div className="recipe-card">
             <img src={pizza} alt="Healthy Green Smoothie" />
-            <h3 class="recipe-title">Super Delicious Pasta</h3>
-            <p class="recipe-description">A mouthwatering pasta with a creamy sauce, perfect for any occasion.</p>
-          </Link>
+            <h3 className="recipe-title">Delicious Chocolate Cake</h3>
+            <p className="recipe-description">
+              Rich, moist, and decadent chocolate cake that everyone loves.
+            </p>
+            {/* <a href="#" class="recipe-btn">Read More</a> */}
+          </div>
         </div>
-      </div>
-      
-      <div class="col-md-4">
-        <div class="recipe-card">
-          <img src={pizza} alt="Healthy Green Smoothie" />
-          <h3 class="recipe-title">Delicious Chocolate Cake</h3>
-          <p class="recipe-description">Rich, moist, and decadent chocolate cake that everyone loves.</p>
-          {/* <a href="#" class="recipe-btn">Read More</a> */}
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="recipe-card">
-          <img src={pizza} alt="Healthy Green Smoothie" />
-          <h3 class="recipe-title">Healthy Green Smoothie</h3>
-          <p class="recipe-description">A refreshing and healthy smoothie made with spinach, kale, and fruit.</p>
-          {/* <a href="#" class="recipe-btn">Read More</a> */}
+        <div className="col-md-4">
+          <div className="recipe-card">
+            <img src={pizza} alt="Healthy Green Smoothie" />
+            <h3 className="recipe-title">Healthy Green Smoothie</h3>
+            <p className="recipe-description">
+              A refreshing and healthy smoothie made with spinach, kale, and
+              fruit.
+            </p>
+            {/* <a href="#" class="recipe-btn">Read More</a> */}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default AllRecipes
+export default AllRecipes;

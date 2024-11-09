@@ -27,32 +27,32 @@ export default function RecipePost() {
         <div className="container mt-5">
             <h1 className="text-center mb-4">RecipePost</h1>
             <form className="form-container" onSubmit={handleSubmit}>
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
+                <div className="mb-3">
+                    <label for="title" className="form-label">Title</label>
                     <input 
                         type="text" 
-                        class="form-control" 
+                        className="form-control" 
                         id="title" 
                         onChange={(e) => setRecipe({...recipe, title: e.target.value })} 
                         value={recipe.title}
                         required 
                     />
                 </div>
-                <div class="mb-3">
-                    <label for="user" class="form-label">User</label>
+                <div className="mb-3">
+                    <label for="user" className="form-label">User</label>
                     <input 
                         type="text" 
-                        class="form-control" 
+                        className="form-control" 
                         id="user" 
                         onChange={(e) => setRecipe({...recipe, user: e.target.value })} 
                         value={recipe.user} 
                         required 
                     />
                 </div>
-                <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
+                <div className="mb-3">
+                    <label for="content" className="form-label">Content</label>
                     <textarea 
-                        class="form-control" 
+                        className="form-control" 
                         id="content" 
                         rows="3" 
                         onChange={(e) => setRecipe({...recipe, content: e.target.value })} 
@@ -75,15 +75,15 @@ export default function RecipePost() {
                         <option value="seafood">Seafood</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" value={date} readOnly/>
+                <div className="mb-3">
+                    <label for="date" className="form-label">Date</label>
+                    <input type="date" className="form-control" id="date" value={date} readOnly/>
                 </div>
-                <div class="mb-3">
-                    <label for="img" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="img" accept="image/*" onChange={handleImageChange} />
+                <div className="mb-3">
+                    <label for="img" className="form-label">Image</label>
+                    <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
                 </div>
-                <button type="submit" class="btn btn-primary">{recipeId ? "Update Recipe" : "Create Recipe"}</button>
+                <button type="submit" className="btn btn-primary">{recipeId ? "Update Recipe" : "Create Recipe"}</button>
             </form>
         </div>
     );

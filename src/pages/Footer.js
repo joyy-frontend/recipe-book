@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer class="bg-primary mt-5 text-white py-4">
-      <div class="container">
-        <div class="row">
-        <div class="col-md-4">
+    <footer className="bg-primary mt-5 text-white py-4">
+      <div className="container">
+        <div className="row">
+        <div className="col-md-4">
                 <h5>About Us</h5>
                 <p>Tamwood React Class</p>
             </div>
-            <div class="col-md-4">
+            <div className="col-md-4">
             <ul className="me-auto mt-2 mt-lg-0">
               <li className="nav-item">
                 <Link className="nav-link" to="/" aria-current="page">
@@ -28,13 +28,13 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div class="col-md-4">
+          <div className="col-md-4">
             <h5>Contact</h5>
             <p>Email: Tamwood@gmail.com</p>
             <p>Phone: +123 456 7890</p>
           </div>
         </div>
-        <div class="text-center mt-3">
+        <div className="text-center mt-3">
           <p>© Tamwood Assignment</p>
         </div>
         </div>

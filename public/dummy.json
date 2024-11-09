@@ -4,6 +4,7 @@
         "title": "Spaghetti Carbonara",
         "author": "JohnDoe",
         "category": "Dinner",
+        "image": null,
         "ingredients": [
             "Spaghetti",
             "Egg yolks",
@@ -35,6 +36,7 @@
         "title": "Avocado Toast",
         "author": "SarahB",
         "category": "Breakfast",
+        "image": "pizza.png",
         "ingredients": [
             "Bread",
             "Avocado",
@@ -60,6 +62,7 @@
         "title": "Chocolate Chip Cookies",
         "author": "BakerJoe",
         "category": "Dessert",
+        "image": "pizza.png",
         "ingredients": [
             "Butter",
             "Sugar",
