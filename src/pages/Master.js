@@ -12,10 +12,12 @@ export default function Master({ isLoggedIn, user, onLogout }) {
     };
 
     return (
-        <>
+        <div className="master-container">
             <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-            <Outlet />
+            <main className="main-content">
+                <Outlet />
+            </main>
             <Footer />
-        </>
+        </div>
     );
 }
