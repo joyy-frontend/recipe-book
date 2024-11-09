@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import Formcomponent from "../components/Formcomponent";
+import "../Custom.css";
 
 export default function Register({ user, userChange, addUser }) {
     const navigate = useNavigate();
     
     const RegisterForm = 
         {inputs: [
-            { type: 'text', name: 'fname', placeholder: 'Enter your first name', value: user.fname, changeFunc: userChange },
-            { type: 'text', name: 'lname', placeholder: 'Enter your last name', value: user.lname, changeFunc: userChange },
-            { type: 'text', name: 'username', placeholder: 'Enter your user name', value: user.username, changeFunc: userChange },
-            { type: 'email', name: 'email', placeholder: 'Enter your email', value: user.email, changeFunc: userChange }, 
-            { type: 'password', name: 'password', placeholder: 'Enter your password', value: user.password, changeFunc: userChange }
+            { type: 'text', name: 'fname', placeholder: 'First name', value: user.fname, changeFunc: userChange, icon: 'fa-feather' },
+            { type: 'text', name: 'lname', placeholder: 'Last name', value: user.lname, changeFunc: userChange, icon: 'fa-feather'},
+            { type: 'text', name: 'username', placeholder: 'User name', value: user.username, changeFunc: userChange, icon: 'fa-user' },
+            { type: 'email', name: 'email', placeholder: 'Email', value: user.email, changeFunc: userChange, icon: 'fa-envelope' }, 
+            { type: 'password', name: 'password', placeholder: 'Password', value: user.password, changeFunc: userChange, icon: 'fa-lock' }
         ],
         buttons: [{ type: 'submit', name: 'btn', label: 'Sign up' }]
     };
-
     const handleRegister = (e) => {
         e.preventDefault();
 
@@ -27,9 +27,11 @@ export default function Register({ user, userChange, addUser }) {
     };
 
     return (
-        <>
-            <h1>Register</h1>
-            <Formcomponent elements={RegisterForm} onSubmit={handleRegister} />
+        <>  
+            <div className="login">
+                <h1 className="title">Register</h1>
+                <Formcomponent elements={RegisterForm} onSubmit={handleRegister} />
+            </div>
         </>
     );
 }

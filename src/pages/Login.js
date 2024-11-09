@@ -6,8 +6,8 @@ export default function Login({ user, userChange, handleLogin }) {
 
     const LoginForm = {
         inputs: [
-            { type: 'email', name: 'email', placeholder: 'Enter your email', value: user.email, changeFunc: userChange },
-            { type: 'password', name: 'password', placeholder: 'Enter your password', value: user.password, changeFunc: userChange }
+            { type: 'email', name: 'email', placeholder: 'Email address', value: user.email, changeFunc: userChange, icon: 'fa-envelope' },
+            { type: 'password', name: 'password', placeholder: 'Password', value: user.password, changeFunc: userChange, icon: 'fa-lock'}
         ],
         buttons: [{ type: 'submit', name: 'btn', label: 'login' }]
     };
@@ -29,8 +29,10 @@ export default function Login({ user, userChange, handleLogin }) {
 
     return (
         <>
-            <h1>Login</h1>
-            <Formcomponent elements={LoginForm} onSubmit={handleLoginSubmit} />
+            <div className="login">
+                <h1 className="title">Login</h1>
+                <Formcomponent elements={LoginForm} onSubmit={handleLoginSubmit} />
+            </div>
         </>
     );
 }
