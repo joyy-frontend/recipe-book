@@ -18,11 +18,31 @@
     background-color: var(--bg-light);
 }
 
+/* navbar */
 .navbar {
     font-family: var(--main-font);
     font-weight: 400;
     background-color: var(--bg-light);
+    padding: 15px 0;
 }
+
+.nav-logo {
+    height: 40px;  
+    width: auto;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem !important;  
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--light-orange) !important;
+}
+
+
+
 
 .login {
     background-color: var(--bg-light);
