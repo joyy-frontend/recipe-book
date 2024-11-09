@@ -7,13 +7,17 @@ export default function RecipeList() {
     navigate('/recipes/new')
   }
     return (
-        <>
-            <h1>Recipes</h1>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary" onClick={handleClick}>ADD</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6 d-flex justify-content-end">
+                    <div class="btn-group d-flex justify-content-end" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary" onClick={handleClick}>ADD</button>
+                    </div>
+                </div>
             </div>
-            <AllRecipes />
-        </>
+                    <AllRecipes />
+        </div>
 
     );
 }
