@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import pizza from "../assets/images/pizza.png";
 import logoImage from "../assets/images/logo.png";
 
-const AllRecipes = () => {
+const AllRecipes = ({category}) => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -19,11 +19,14 @@ const AllRecipes = () => {
     })
 );
 
+const filteredRecipes = category === "All"
+? recipes : recipes.filter(recipe => recipe.category === category);
+
   return (
     <div className="container py-5">
       <h2 className="text-center mb-4">All Recipes</h2>
       <div className="row g-4">
-        {recipes.map((recipe) => (
+        {filteredRecipes.map((recipe) => (
           <div className="col-md-4" key={recipe.id}>
             <div className="recipe-card">
               <Link to={`/recipes/${recipe.id}`}>
