@@ -1,17 +1,42 @@
 import { useNavigate } from "react-router-dom";
 import AllRecipes from "../components/AllRecipes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function RecipeList() {
+  const [recipes, setRecipes] = useState([]);
   const navigate = useNavigate();
   const [category, setCategory] = useState("All");
+  const [searchWord, setSearchWord] = useState("");
+  
+  useEffect(() => {
+    fetch("/dummy.json")
+      .then((response) => response.json())
+      .then((data) => setRecipes(data))
+      .catch((error) => console.error("Error loading recipes:", error));
+  }, []);
 
+  console.log(
+    recipes.map((recipe) => {
+        return recipe.image;
+    })
+);
+  
   const handleClick = () => {
     navigate("/recipes/new");
   };
   const handleCategory = (category) => {
     setCategory(category);
   };
+
+
+  const handleSearch = (e)=>{
+    const word = e.target.value;
+    setSearchWord(word);
+
+    console.log(word);
+
+    
+  }
 
   const categories = [
     "All",
@@ -52,6 +77,13 @@ export default function RecipeList() {
 
           <main className="col-md-9">
             <h1>Recipes</h1>
+            <input
+                type="text"
+                placeholder="Search..."
+                style={{width : "100%"}}
+                value={searchWord}
+                onChange={handleSearch}
+            />
             <div
               className="btn-group mb-4"
               role="group"
@@ -65,7 +97,7 @@ export default function RecipeList() {
                 ADD
               </button>
             </div>
-            <AllRecipes category = {category}/>
+            <AllRecipes recipes={recipes} category = {category} searchWord = {searchWord}/>
           </main>
         </div>
       </div>

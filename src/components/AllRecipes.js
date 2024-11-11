@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import pizza from "../assets/images/pizza.png";
 import logoImage from "../assets/images/logo.png";
 
-const AllRecipes = ({category}) => {
-  const [recipes, setRecipes] = useState([]);
+const AllRecipes = ({recipes, category, searchWord}) => {
+  
+const filteredRecipes = recipes.filter((recipe)=>{
+  const resultCategory = category === "All" || recipe.category === category;
+  const resultSearch = 
+  recipe.title.toLowerCase().includes(searchWord) ||
+  recipe.author.toLowerCase().includes(searchWord) ||
+  recipe.category.toLowerCase().includes(searchWord) ||
+  recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(searchWord)) ||
+  recipe.instructions.some(instruction => instruction.toLowerCase().includes(searchWord))
+  
+console.log("resultCategory:",resultCategory,"resultSearch:",resultSearch);
 
-  useEffect(() => {
-    fetch("/dummy.json")
-      .then((response) => response.json())
-      .then((data) => setRecipes(data))
-      .catch((error) => console.error("Error loading recipes:", error));
-  }, []);
-
-  console.log(
-    recipes.map((recipe) => {
-        return recipe.image;
-    })
-);
-
-const filteredRecipes = category === "All"
-? recipes : recipes.filter(recipe => recipe.category === category);
+return resultCategory && resultSearch;
+});
 
 return (
   <div className="container py-5">
