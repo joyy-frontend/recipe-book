@@ -7,7 +7,7 @@ export default function RecipeList() {
   const navigate = useNavigate();
   const [category, setCategory] = useState("All");
   const [searchWord, setSearchWord] = useState("");
-  
+
   useEffect(() => {
     fetch("/dummy.json")
       .then((response) => response.json())
@@ -15,12 +15,13 @@ export default function RecipeList() {
       .catch((error) => console.error("Error loading recipes:", error));
   }, []);
 
-  console.log(
-    recipes.map((recipe) => {
-        return recipe.image;
-    })
-);
-  
+  //   console.log(
+  //     recipes.map((recipe) => {
+  //         return recipe.image;
+  //     }
+  //   )
+  // );
+
   const handleClick = () => {
     navigate("/recipes/new");
   };
@@ -28,15 +29,12 @@ export default function RecipeList() {
     setCategory(category);
   };
 
-
-  const handleSearch = (e)=>{
+  const handleSearch = (e) => {
     const word = e.target.value;
     setSearchWord(word);
 
-    console.log(word);
-
-    
-  }
+    // console.log(word);
+  };
 
   const categories = [
     "All",
@@ -78,11 +76,11 @@ export default function RecipeList() {
           <main className="col-md-9">
             <h1>Recipes</h1>
             <input
-                type="text"
-                placeholder="Search..."
-                style={{width : "100%"}}
-                value={searchWord}
-                onChange={handleSearch}
+              type="text"
+              placeholder="Search..."
+              style={{ width: "100%" }}
+              value={searchWord}
+              onChange={handleSearch}
             />
             <div
               className="btn-group mb-4"
@@ -97,7 +95,11 @@ export default function RecipeList() {
                 ADD
               </button>
             </div>
-            <AllRecipes recipes={recipes} category = {category} searchWord = {searchWord}/>
+            <AllRecipes
+              recipes={recipes}
+              category={category}
+              searchWord={searchWord}
+            />
           </main>
         </div>
       </div>
