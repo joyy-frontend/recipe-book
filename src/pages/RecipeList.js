@@ -59,15 +59,15 @@ export default function RecipeList() {
           <main className="col-md-9">
             <div className="d-flex justify-content align-items-center mb-4">
               <h1 className="mx-auto">Recipes</h1>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleClick}
+                style={{ width: '10%' }}
+              >
+                ADD
+              </button>
             </div>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleClick}
-              style={{ width: '30%' }}
-            >
-              ADD
-            </button>
             <AllRecipes category = {category} PropsRecipes={recipes}/>
           </main>
         </div>
