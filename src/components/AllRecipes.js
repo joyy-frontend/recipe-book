@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pizza from "../assets/images/pizza.png";
 import logoImage from "../assets/images/logo.png";
 
 const AllRecipes = ({category, PropsRecipes}) => {
+  const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
 
   // useEffect(() => {
@@ -21,6 +22,16 @@ const AllRecipes = ({category, PropsRecipes}) => {
 
 const filteredRecipes = category === "All"
 ? recipes : recipes.filter(recipe => recipe.category === category);
+
+const onClickDel = (recipeId) => {
+  let storageData = JSON.parse(localStorage.getItem('recipe')) || [];
+  const updatedData = storageData.filter(item => item.id !== parseInt(recipeId));
+
+  localStorage.setItem("recipe", JSON.stringify(updatedData));
+
+  alert("Recipe deleted successfully");
+  navigate(0);
+}
 
   return (
     <div className="container py-5">
@@ -42,7 +53,7 @@ const filteredRecipes = category === "All"
                     <img
                       src={recipe.image}
                       alt={recipe.title}
-                      style={{ maxWidth: "250px" }}
+                      style={{ width: '250px', height: '250px' }}
                     />
                     <div>
                       <h3 className="card-title">{recipe.title}</h3>
@@ -55,6 +66,14 @@ const filteredRecipes = category === "All"
                       </p>
                     </div>
                   </Link>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    style={{ width: '30%' }}
+                    onClick={()=> onClickDel(recipe.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
           )) : <div className="text-center mt-6">There is no Data</div>
