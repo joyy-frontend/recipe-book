@@ -1,45 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import pizza from "../assets/images/pizza.png";
 import logoImage from "../assets/images/logo.png";
 
-const AllRecipes = ({category, PropsRecipes}) => {
-  console.log(PropsRecipes)
-  const [recipes, setRecipes] = useState([]);
+const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
+  console.log("PropsRecipes:", PropsRecipes);
 
-  // useEffect(() => {
-  //   fetch("/dummy.json")
-  //     .then((response) => response.json())
-  //     .then((data) => setRecipes(data))
-  //     .catch((error) => console.error("Error loading recipes:", error));
-  // }, []);
+  const [recipes, setRecipes] = useState(PropsRecipes);
 
-  console.log(
-    recipes.map((recipe) => {
-        return recipe.image;
-    })
-);
+  useEffect(() => {
+    setRecipes(PropsRecipes);
+  }, [PropsRecipes]);
+  console.log(PropsRecipes.id);
 
-const filteredRecipes = category === "All"
-? recipes : recipes.filter(recipe => recipe.category === category);
+  const filteredRecipes = recipes.filter((recipe) => {
+
+    const resultCategory = 
+      category.toLowerCase().trim() === "all" || 
+      recipe.category.toLowerCase().trim() === category.toLowerCase().trim();
+
+    const resultSearch =
+      searchWord === "" ||
+      recipe.title.toLowerCase().includes(searchWord.toLowerCase()) ||
+      recipe.user.toLowerCase().includes(searchWord.toLowerCase()) ||
+      recipe.content.toLowerCase().includes(searchWord.toLowerCase()) ||
+      recipe.category.toLowerCase().includes(searchWord.toLowerCase());
+
+      console.log(resultCategory, resultSearch); // T T, T F, F F 이런식으로 찍힘
+      
+    return resultCategory && resultSearch;
+    
+  });
+  
 
   return (
     <div className="container py-5">
       <h2 className="text-center mb-4">All Recipes</h2>
       <div className="row g-4">
-        {PropsRecipes.map((recipe) => (
+      {/* {PropsRecipes.map((recipe) => (
           <div className="col-md-4" key={recipe.id}>
             <div className="recipe-card">
-              <Link to={`/recipes/${recipe.id}`}>
-                {/* <img
+              <Link to={`/recipes/${recipe.id}`}> 
+                 <img
                   src={recipe.image
                     ? require(`../assets/images/${recipe.image}`)
                     : logoImage}
                   alt={recipe.title}
                   style={{ maxWidth: "250px" }}
-                /> */}
-                <img
+                /> 
+                {/* <img
                   src={recipe.image}
+                  alt={recipe.title}
+                  style={{ maxWidth: "250px" }}
+                /> */}
+        {filteredRecipes.map((recipe) => (
+          <div className="col-md-4" key={recipe.id}>
+            <div className="recipe-card">
+              <Link to={`/recipes/${recipe.id}`}>
+                <img
+                  src={recipe.image ? recipe.image : logoImage}
                   alt={recipe.title}
                   style={{ maxWidth: "250px" }}
                 />
@@ -57,26 +75,6 @@ const filteredRecipes = category === "All"
             </div>
           </div>
         ))}
-
-        {/* <div className="col-md-4">
-          <div className="recipe-card">
-            <img src={pizza} alt="Healthy Green Smoothie" />
-            <h3 className="recipe-title">Delicious Chocolate Cake</h3>
-            <p className="recipe-description">
-              Rich, moist, and decadent chocolate cake that everyone loves.
-            </p>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="recipe-card">
-            <img src={pizza} alt="Healthy Green Smoothie" />
-            <h3 className="recipe-title">Healthy Green Smoothie</h3>
-            <p className="recipe-description">
-              A refreshing and healthy smoothie made with spinach, kale, and
-              fruit.
-            </p>
-          </div>
-        </div> */}
       </div>
     </div>
   );
