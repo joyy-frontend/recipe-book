@@ -1,25 +1,57 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function RecipePost() {
+    const navigate = useNavigate();
     const [date, setDate] = useState('');
     const { recipeId } = useParams();
-    const [recipe, setRecipe] = useState({ title: '', user: '', content: '', category: '', image: '' });
-    const handleSubmit = () => {
+    const [recipe, setRecipe] = useState({ 
+        title: '', 
+        user: '', 
+        content: '', 
+        category: '', 
+        image: '' 
+    });
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if(recipeId) {
-            // 기존 레시피 정보 수정 (edit)
+            //edit
+            const storageItem = localStorage.getItem("recipe");
+            console.log('storageItem >>>> ', storageItem);
         } else {
-            // 새로운 레시피 생성 (create)
+            localStorage.setItem("recipe", JSON.stringify(recipe));
+            alert("Recipe saved successfully");
+            navigate('/recipes')
         }
     }
 
     const handleImageChange = (e) => {
-        setRecipe({ ...recipe, image: e.target.files[0] });
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setRecipe({ ...recipe, image: reader.result });
+        };
+
+        if(file) {
+            reader.readAsDataURL(file);
+        }
     }
     useEffect(() => {
-        // 예를들어 fetch() 같은걸 만든다. (recipeId로 정보를 가져오는 함수)
+        const data = JSON.parse(localStorage.getItem('recipe'));
+        // const filteredData = data.filter(item => item.id === recipeId);
+        
+        // 예를들어 fetch(), (recipeId로 정보를 가져오는 함수)
     }, [recipeId])
     useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if(user) {
+            setRecipe({...recipe, user: user.email})
+        } else {
+            alert("Please Login first");
+            navigate(-1);
+        }
+        
         const today = new Date().toISOString().split("T")[0];
         setDate(today);    
     }, [])
@@ -62,7 +94,7 @@ export default function RecipePost() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select" id="category" value={recipe.category} onChange={(e) => setRecipe({...recipe, category: e.target.category })}required>
+                    <select className="form-select" id="category" value={recipe.category} onChange={(e) => setRecipe({...recipe, category: e.target.value })}required>
                         <option value="">Select Category</option>
                         <option value="breakfast">Breakfast</option>
                         <option value="lunch">Lunch</option>
@@ -81,7 +113,7 @@ export default function RecipePost() {
                 </div>
                 <div className="mb-3">
                     <label for="img" className="form-label">Image</label>
-                    <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
+                    <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} value={recipeId ? recipe.image : ""}/>
                 </div>
                 <button type="submit" className="btn btn-primary">{recipeId ? "Update Recipe" : "Create Recipe"}</button>
             </form>
