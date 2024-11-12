@@ -14,12 +14,14 @@ export default function RecipePost() {
     });
     const handleSubmit = (e) => {
         e.preventDefault();
+        let storageData = JSON.parse(localStorage.getItem("recipe")) || [];
+        
         if(recipeId) {
             //edit
             const storageItem = localStorage.getItem("recipe");
-            console.log('storageItem >>>> ', storageItem);
         } else {
-            localStorage.setItem("recipe", JSON.stringify(recipe));
+            storageData.push(recipe);
+            localStorage.setItem("recipe", JSON.stringify(storageData));
             alert("Recipe saved successfully");
             navigate('/recipes')
         }
