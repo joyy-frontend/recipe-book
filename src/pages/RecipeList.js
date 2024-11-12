@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import AllRecipes from "../components/AllRecipes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function RecipeList() {
   const navigate = useNavigate();
   const [category, setCategory] = useState("All");
+  const [recipes, setRecipes] = useState([]);
+  
+  useEffect(() => {
+    const localStoragedData = JSON.parse(localStorage.getItem('recipe'));
+    setRecipes(localStoragedData);
+  }, []);
 
   const handleClick = () => {
     navigate("/recipes/new");
@@ -51,21 +57,18 @@ export default function RecipeList() {
           </aside>
 
           <main className="col-md-9">
-            <h1>Recipes</h1>
-            <div
-              className="btn-group mb-4"
-              role="group"
-              aria-label="Basic example"
-            >
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleClick}
-              >
-                ADD
-              </button>
+            <div className="d-flex justify-content align-items-center mb-4">
+              <h1 className="mx-auto">Recipes</h1>
             </div>
-            <AllRecipes category = {category}/>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleClick}
+              style={{ width: '30%' }}
+            >
+              ADD
+            </button>
+            <AllRecipes category = {category} PropsRecipes={recipes}/>
           </main>
         </div>
       </div>
