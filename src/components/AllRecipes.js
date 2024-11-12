@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import logoImage from "../assets/images/logo.png";
 
 const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
-  console.log("PropsRecipes:", PropsRecipes);
-
   const [recipes, setRecipes] = useState(PropsRecipes);
 
   useEffect(() => {
     setRecipes(PropsRecipes);
   }, [PropsRecipes]);
-  console.log(PropsRecipes.id);
 
   const filteredRecipes = recipes.filter((recipe) => {
 
