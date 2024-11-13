@@ -1,37 +1,17 @@
-import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import pizza from "../assets/images/pizza.png";
-import logoImage from "../assets/images/logo.png";
 
 const AllRecipes = ({category, PropsRecipes}) => {
   const navigate = useNavigate();
-  const [recipes, setRecipes] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("/dummy.json")
-  //     .then((response) => response.json())
-  //     .then((data) => setRecipes(data))
-  //     .catch((error) => console.error("Error loading recipes:", error));
-  // }, []);
+  const onClickDel = (recipeId) => {
+    let storageData = JSON.parse(localStorage.getItem('recipe')) || [];
+    const updatedData = storageData.filter(item => item.id !== parseInt(recipeId));
 
-  console.log(
-    recipes.map((recipe) => {
-        return recipe.image;
-    })
-);
+    localStorage.setItem("recipe", JSON.stringify(updatedData));
 
-const filteredRecipes = category === "All"
-? recipes : recipes.filter(recipe => recipe.category === category);
-
-const onClickDel = (recipeId) => {
-  let storageData = JSON.parse(localStorage.getItem('recipe')) || [];
-  const updatedData = storageData.filter(item => item.id !== parseInt(recipeId));
-
-  localStorage.setItem("recipe", JSON.stringify(updatedData));
-
-  alert("Recipe deleted successfully");
-  navigate(0);
-}
+    alert("Recipe deleted successfully");
+    navigate(0);
+  }
 
   return (
     <div className="container py-5">
@@ -43,13 +23,6 @@ const onClickDel = (recipeId) => {
               <div className="col-md-4" key={recipe.id}>
                 <div className="recipe-card">
                   <Link to={`/recipes/${recipe.id}`}>
-                    {/* <img
-                      src={recipe.image
-                        ? require(`../assets/images/${recipe.image}`)
-                        : logoImage}
-                      alt={recipe.title}
-                      style={{ maxWidth: "250px" }}
-                    /> */}
                     <img
                       src={recipe.image}
                       alt={recipe.title}
@@ -68,8 +41,8 @@ const onClickDel = (recipeId) => {
                   </Link>
                   <button
                     type="button"
-                    className="btn btn-primary"
-                    style={{ width: '30%' }}
+                    class="btn btn-outline-primary"
+                    style={{ width: '40%', textAlign:'center' }}
                     onClick={()=> onClickDel(recipe.id)}
                   >
                     Delete
@@ -78,26 +51,6 @@ const onClickDel = (recipeId) => {
               </div>
           )) : <div className="text-center mt-6">There is no Data</div>
         }
-
-        {/* <div className="col-md-4">
-          <div className="recipe-card">
-            <img src={pizza} alt="Healthy Green Smoothie" />
-            <h3 className="recipe-title">Delicious Chocolate Cake</h3>
-            <p className="recipe-description">
-              Rich, moist, and decadent chocolate cake that everyone loves.
-            </p>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="recipe-card">
-            <img src={pizza} alt="Healthy Green Smoothie" />
-            <h3 className="recipe-title">Healthy Green Smoothie</h3>
-            <p className="recipe-description">
-              A refreshing and healthy smoothie made with spinach, kale, and
-              fruit.
-            </p>
-          </div>
-        </div> */}
       </div>
     </div>
   );
