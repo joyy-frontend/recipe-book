@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function RecipePost() {
+    const categories = [
+        "breakfast", "lunch", "dinner", "appetizer",
+        "salad", "dessert", "vegetarian", "soup", "seafood"
+    ];
     const navigate = useNavigate();
     const [date, setDate] = useState('');
     const { recipeId } = useParams();
@@ -51,12 +55,30 @@ export default function RecipePost() {
             reader.readAsDataURL(file);
         }
     }
+
+    const handleCategoryClick = (category) => {
+        setRecipe((prev) => {
+            const currentCategories = prev.category ? prev.category.split(',').map(item => item.trim()) : [];
+
+            if (currentCategories.includes(category)) {
+                return {
+                    ...prev,
+                    category: currentCategories.filter(item => item !== category).join(', ')
+                };
+            } else {
+                return {
+                    ...prev,
+                    category: currentCategories.length > 0 
+                    ? [...currentCategories, category].join(', ') 
+                    : category 
+                };
+            }
+        });
+    };
     useEffect(() => {
         if(recipeId) {
             const storageData = JSON.parse(localStorage.getItem('recipe')) || [];
             const currentData = storageData.find(item => item.id === parseInt(recipeId));
-            console.log('storageData >>>>', storageData);
-            console.log('currentData >>>> ', currentData);
             if(currentData) {
                 setRecipe(currentData);
             }
@@ -69,7 +91,6 @@ export default function RecipePost() {
             setRecipe(prev => ({
                 ...prev, user: user.email
             }))
-            // setRecipe({...recipe, user: user.email})
         } else {
             alert("Please Login first");
             navigate(-1);
@@ -102,7 +123,7 @@ export default function RecipePost() {
                         id="user" 
                         onChange={(e) => setRecipe({...recipe, user: e.target.value })} 
                         value={recipe.user} 
-                        required 
+                        readOnly
                     />
                 </div>
                 <div className="mb-3">
@@ -118,18 +139,19 @@ export default function RecipePost() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select" id="category" value={recipe.category} onChange={(e) => setRecipe({...recipe, category: e.target.value })}required>
-                        <option value="">Select Category</option>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="appetizer">Appetizer</option>
-                        <option value="salad">Salad</option>
-                        <option value="dessert">Dessert</option>
-                        <option value="vegetarian">Vegetarian</option>
-                        <option value="soup">Soup</option>
-                        <option value="seafood">Seafood</option>
-                    </select>
+                    <br />
+                    <div class="btn-group-category" role="group" aria-label="Category Selector">
+                        {categories.map((category) => (
+                            <button
+                                key={category}
+                                type="button"
+                                className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'btn-primary' : 'btn-outline-primary'}`}
+                                onClick={() => handleCategoryClick(category)}
+                                >
+                                {category.charAt(0).toUpperCase() + category.slice(1)}
+                            </button>
+                        ))}
+                    </div>  
                 </div>
                 <div className="mb-3">
                     <label for="date" className="form-label">Date</label>
