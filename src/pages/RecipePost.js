@@ -6,6 +6,7 @@ export default function RecipePost() {
     const [date, setDate] = useState('');
     const { recipeId } = useParams();
     const [recipe, setRecipe] = useState({ 
+        id: 0,
         title: '', 
         user: '', 
         content: '', 
@@ -15,12 +16,23 @@ export default function RecipePost() {
     const handleSubmit = (e) => {
         e.preventDefault();
         let storageData = JSON.parse(localStorage.getItem("recipe")) || [];
-        
         if(recipeId) {
-            //edit
-            const storageItem = localStorage.getItem("recipe");
+            const index = storageData.findIndex(item => item.id === parseInt(recipeId, 10));
+
+            if(index !== -1) {
+                storageData[index] = { ...recipe, id: parseInt(recipeId, 10)};
+                localStorage.setItem("recipe", JSON.stringify(storageData));
+                alert("Recipe updated Successfully");
+                navigate('/recipes');
+            } else {
+                alert("Recipe not found for editing");
+            }
         } else {
-            storageData.push(recipe);
+            const newData = {
+                ...recipe,
+                id: storageData.length + 1
+            }
+            storageData.push(newData);
             localStorage.setItem("recipe", JSON.stringify(storageData));
             alert("Recipe saved successfully");
             navigate('/recipes')
@@ -40,15 +52,24 @@ export default function RecipePost() {
         }
     }
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('recipe'));
-        // const filteredData = data.filter(item => item.id === recipeId);
-        
-        // 예를들어 fetch(), (recipeId로 정보를 가져오는 함수)
-    }, [recipeId])
+        if(recipeId) {
+            const storageData = JSON.parse(localStorage.getItem('recipe')) || [];
+            const currentData = storageData.find(item => item.id === parseInt(recipeId));
+            console.log('storageData >>>>', storageData);
+            console.log('currentData >>>> ', currentData);
+            if(currentData) {
+                setRecipe(currentData);
+            }
+        }
+    }, [recipeId]);
+
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         if(user) {
-            setRecipe({...recipe, user: user.email})
+            setRecipe(prev => ({
+                ...prev, user: user.email
+            }))
+            // setRecipe({...recipe, user: user.email})
         } else {
             alert("Please Login first");
             navigate(-1);
@@ -56,7 +77,8 @@ export default function RecipePost() {
         
         const today = new Date().toISOString().split("T")[0];
         setDate(today);    
-    }, [])
+    }, []);
+
     return (
         <div className="container mt-5">
             <h1 className="text-center mb-4">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
@@ -115,8 +137,15 @@ export default function RecipePost() {
                 </div>
                 <div className="mb-3">
                     <label for="img" className="form-label">Image</label>
-                    <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} value={recipeId ? recipe.image : ""}/>
+                    <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
                 </div>
+                {
+                    recipe.image && (
+                        <div className="mb-3">
+                            <img src={recipe.image} alt="Preview" style={{ width: "300px", height: "300px" }} />
+                        </div>
+                    )
+                }
                 <button type="submit" className="btn btn-primary">{recipeId ? "Update Recipe" : "Create Recipe"}</button>
             </form>
         </div>

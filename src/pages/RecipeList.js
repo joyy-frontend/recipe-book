@@ -101,6 +101,16 @@ export default function RecipeList() {
               ADD
             </button>
             <AllRecipes category = {category} PropsRecipes={recipes} searchWord = {searchWord}/>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleClick}
+                style={{ width: '10%' }}
+              >
+                ADD
+              </button>
+            </div>
+            <AllRecipes category = {category} PropsRecipes={recipes}/>
           </main>
         </div>
       </div>
