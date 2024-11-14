@@ -80,21 +80,24 @@ export default function RecipeList() {
           <div className="d-flex justify-content align-items-center mb-4">
             <h1 className="mx-auto">Recipes</h1>
           </div>
-          <input
-            type="text"
-            placeholder="Search..."
-            style={{ width: "100%" }}
-            value={searchWord}
-            onChange={handleSearch}
-          />
-          <button
-            type="button"
-            className="btn btn-primary my-3"
-            onClick={handleClick}
-            style={{ width: "30%" }}
-          >
-            ADD
-          </button>
+          <div className="d-flex align-items-center">
+            <input
+              type="text"
+              className="form-control me-2"
+              placeholder="Search..."
+              style={{ width: "100%" }}
+              value={searchWord}
+              onChange={handleSearch}
+            />
+            <button
+              type="button"
+              className="btn btn-primary my-3"
+              onClick={handleClick}
+              style={{ width: "30%" }}
+            >
+              ADD
+            </button>
+          </div>
           <AllRecipes category={category} PropsRecipes={recipes} searchWord={searchWord} />
         </main>
       </div>
