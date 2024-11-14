@@ -1,22 +1,19 @@
+import React, { Component } from "react";
 import Formcomponent from "../components/Formcomponent";
-import { useNavigate } from "react-router-dom";
+import { withRouter } from "../utils/withRouterReplacement"; // 커스텀 withRouter 사용
 
-export default function Login({ user, userChange, handleLogin }) {
-    const navigate = useNavigate();
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    }
 
-    const LoginForm = {
-        inputs: [
-            { type: 'email', name: 'email', placeholder: 'Email address', value: user.email, changeFunc: userChange, icon: 'fa-envelope' },
-            { type: 'password', name: 'password', placeholder: 'Password', value: user.password, changeFunc: userChange, icon: 'fa-lock'}
-        ],
-        buttons: [{ type: 'submit', name: 'btn', label: 'login' }]
-    };
-
-    const handleLoginSubmit = (e) => {
+    handleLoginSubmit(e) {
         e.preventDefault();
 
+        const { user, handleLogin, navigate } = this.props; // props에서 user, handleLogin, navigate 추출
         const users = JSON.parse(localStorage.getItem("users")) || [];
-
         const loginUser = users.find(u => u.email === user.email && u.password === user.password);
 
         if (loginUser) {
@@ -25,14 +22,26 @@ export default function Login({ user, userChange, handleLogin }) {
         } else {
             alert("Invalid email or password.");
         }
-    };
+    }
 
-    return (
-        <>
+    render() {
+        const { user, userChange } = this.props;
+
+        const LoginForm = {
+            inputs: [
+                { type: 'email', name: 'email', placeholder: 'Email address', value: user.email, changeFunc: userChange, icon: 'fa-envelope' },
+                { type: 'password', name: 'password', placeholder: 'Password', value: user.password, changeFunc: userChange, icon: 'fa-lock'}
+            ],
+            buttons: [{ type: 'submit', name: 'btn', label: 'login' }]
+        };
+
+        return (
             <div className="login">
                 <h1 className="title">Login</h1>
-                <Formcomponent elements={LoginForm} onSubmit={handleLoginSubmit} />
+                <Formcomponent elements={LoginForm} onSubmit={this.handleLoginSubmit} />
             </div>
-        </>
-    );
+        );
+    }
 }
+
+export default withRouter(Login);

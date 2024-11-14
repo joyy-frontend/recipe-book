@@ -14,7 +14,7 @@
     box-sizing: border-box;
 }
 
-#root {
+#root, .main-content {
     background-color: var(--bg-light);
 }
 
@@ -80,8 +80,98 @@ body,
     color: var(--light-orange) !important;
 }
 
+/* home */
+.home-container {
+    overflow-x: hidden;  /* 가로 스크롤 방지 */
+}
+
+.hero-header {
+    background-color: var(--bg-light);
+    padding: 60px 0;
+    margin-top: -20px;  
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.hero-text {
+    flex: 1;
+    color: white;
+}
+
+.hero-title {
+    font-family: var(--sub-font);
+    color: rgb(43, 40, 40);
+    font-size: 50px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-align: right;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    color: rgb(78, 75, 75);
+    margin-bottom: 30px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.hero-btn {
+    background-color: var(--deep-orange);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero-btn:hover {
+    background-color: var(--light-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.hero-btn i {
+    transition: transform 0.3s ease;
+}
+
+.hero-btn:hover i {
+    transform: translateX(5px);
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+
+.hero-image img:hover {
+    transform: translateY(-10px);
+}
 
 
+/* login */
 
 .login {
     background-color: var(--bg-light);
@@ -351,6 +441,18 @@ body,
 
 
 @media (max-width: 768px) {
+    .main-title {
+        font-size: 40px;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
     .navbar-nav {
         text-align: center;
     }
