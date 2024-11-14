@@ -15,7 +15,8 @@ export default function RecipePost() {
         user: '', 
         content: '', 
         category: '', 
-        image: '' 
+        image: '',
+        likes: 0 
     });
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,7 +35,8 @@ export default function RecipePost() {
         } else {
             const newData = {
                 ...recipe,
-                id: storageData.length + 1
+                id: storageData.length + 1,
+                likes: 0
             }
             storageData.push(newData);
             localStorage.setItem("recipe", JSON.stringify(storageData));
