@@ -347,6 +347,68 @@ body,
     color: var(--light-green);
 }
 
+
+
+/* aside category */
+.categories-sidebar {
+    border-radius: 15px;
+    padding: 20px;
+  }
+  
+  .categories-title {
+    font-family: var(--sub-font);
+    color: var(--deep-orange);
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+  }
+  
+  .category-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .category-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    color: var(--light-green);
+    font-family: var(--main-font);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .category-btn:hover {
+    background-color: var(--bg-light);
+    transform: translateX(5px);
+  }
+  
+  .category-btn.active {
+    background-color: var(--light-orange);
+    color: white;
+    box-shadow: 0 2px 4px rgba(215, 126, 93, 0.3);
+  }
+  
+  .category-btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: var(--deep-orange);
+    transition: width 0.3s ease;
+  }
+  
+  .category-btn:hover::after {
+    width: 100%;
+  }
+
 /* footer */
 .footer-container {
     background-color: var(--light-orange);

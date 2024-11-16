@@ -70,30 +70,47 @@ export default function RecipeList() {
     "Seafood",
   ];
 
+  const getCategoryIcon = (category) => {
+    const icons = {
+      'All': 'fa-th-large',
+      'Breakfast': 'fa-coffee',
+      'Lunch': 'fa-utensils',
+      'Dinner': 'fa-moon',
+      'Appetizer': 'fa-cheese',
+      'Salad': 'fa-leaf',
+      'Dessert': 'fa-ice-cream',
+      'Vegetarian': 'fa-carrot',
+      'Soup': 'fa-hotdog',
+      'Seafood': 'fa-fish'
+    };
+    return icons[category] || 'fa-th-large';
+  };
+  
   return (
     <div className="container-fluid">
       <div className="row">
         <aside className="col-md-3 d-none d-md-block">
-          <div className="p-3">
-            <h2 className="text-center">Categories</h2>
-            <ul className="list-group list-group-flush">
+          <div className="categories-sidebar">
+            <h2 className="categories-title">Categories</h2>
+            <div className="category-buttons">
               {categories.map((cate) => (
-                <li
+                <button
                   key={cate}
-                  className={`list-group-item ${category === cate ? "active" : ""}`}
+                  className={`category-btn ${category === cate ? "active" : ""}`}
                   onClick={() => handleCategory(cate)}
-                  style={{ cursor: "pointer" }}
                 >
+                  {/* 아이콘 추가 */}
+                  <i className={`fas ${getCategoryIcon(cate)} me-2`}></i>
                   {cate}
-                </li>
+                </button>
               ))}
-            </ul>
+            </div>
           </div>
         </aside>
 
         <main className="col-md-9">
           <div className="d-flex justify-content align-items-center mb-4">
-            <h1 className="mx-auto">Recipes</h1>
+            <h1 className="title mx-auto">Recipes</h1>
           </div>
           <div className="d-flex align-items-center">
             <input
