@@ -4,11 +4,17 @@ import logoImage from "../assets/images/logo.png";
 
 const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
   const [recipes, setRecipes] = useState(PropsRecipes);
+  const [currentUser, setCurrentUser] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     setRecipes(PropsRecipes);
   }, [PropsRecipes]);
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+    setCurrentUser(currentUser.email);
+  }, []);
 
   const onClickDel = (recipeId) => {
     let storageData = JSON.parse(localStorage.getItem("recipe")) || [];
@@ -82,14 +88,17 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
                     </p>
                   </div>
                 </Link>
-                <button
-                  type="button"
-                  className="btn btn-outline-primary"
-                  style={{ width: "40%", textAlign: "center" }}
-                  onClick={() => onClickDel(recipe.id)}
-                >
-                  Delete
-                </button>
+                {
+                  recipe.user === currentUser &&
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary"
+                    style={{ width: "40%", textAlign: "center" }}
+                    onClick={() => onClickDel(recipe.id)}
+                  >
+                    Delete
+                  </button>
+                }
                 <button
                 className={`btn ${recipe.liked ? "btn-danger" : "btn-outline-danger"}`}
                 style={{ width: "40%", textAlign: "center" }}
