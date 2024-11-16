@@ -21,6 +21,7 @@ export default function RecipeList() {
       const dataWithId = processedData.map((recipe, index) => ({
         ...recipe,
         id: recipe.id || index + 1,
+        liked: recipe.liked || false, //기본값
       }));
 
       setRecipes(dataWithId);
@@ -29,18 +30,19 @@ export default function RecipeList() {
     }
   }, []);
 
-  const handleLike = (recipeId) => {
+  const handleLiked = (recipeId) => {
     const updatedRecipes = recipes.map((recipe) => {
       if (recipe.id === recipeId) {
-        const updatedLikes = recipe.likes + 1;
-        return { ...recipe, likes: updatedLikes };
+        const updatedLikes = recipe.liked ? recipe.likes - 1 : recipe.likes + 1; // 좋아요 상태에 따라 증가/감소
+        return { ...recipe, likes: updatedLikes, liked: !recipe.liked }; // liked 상태 업데이트
       }
       return recipe;
     });
-
+  
     setRecipes(updatedRecipes);
-    localStorage.setItem("recipe", JSON.stringify(updatedRecipes)); // 업데이트된 데이터 저장
+    localStorage.setItem("recipe", JSON.stringify(updatedRecipes));
   };
+  
 
   const handleClick = () => {
     navigate("/recipes/new");
@@ -111,7 +113,7 @@ export default function RecipeList() {
               ADD
             </button>
           </div>
-          <AllRecipes category={category} PropsRecipes={recipes} searchWord={searchWord} />
+          <AllRecipes category={category} PropsRecipes={recipes} searchWord={searchWord} handleLiked={handleLiked} />
         </main>
       </div>
     </div>
