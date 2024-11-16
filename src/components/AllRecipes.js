@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoImage from "../assets/images/logo.png";
 
-const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
+const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
   const [recipes, setRecipes] = useState(PropsRecipes);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
 
     localStorage.setItem("recipe", JSON.stringify(updatedData));
     alert("Recipe deleted successfully");
-    
+
     setRecipes(updatedData);
     navigate(0);
   };
@@ -28,17 +28,17 @@ const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
     const arrayCategories = Array.isArray(category)
       ? category.map((cate) => cate.toLowerCase().trim())
       : [category.toLowerCase().trim()];
-  
+
     const recipeCategories = recipe.category
       .toLowerCase()
       .split(",")
       .map((cate) => cate.trim()); // ,(컴마) 기준으로 자름. "salad, appetizer" -> ["salad", "appetizer"]
     console.log(recipeCategories);
-  
+
     const resultCategory =
-    arrayCategories.includes("all") ||
+      arrayCategories.includes("all") ||
       recipeCategories.some((cate) => arrayCategories.includes(cate));
-  
+
     const resultSearch =
       searchWord === "" ||
       (recipe.title &&
@@ -46,14 +46,16 @@ const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
       (recipe.user &&
         recipe.user.toLowerCase().includes(searchWord.toLowerCase().trim())) ||
       (recipe.content &&
-        recipe.content.toLowerCase().includes(searchWord.toLowerCase().trim())) ||
+        recipe.content
+          .toLowerCase()
+          .includes(searchWord.toLowerCase().trim())) ||
       (recipe.category &&
-        recipe.category.toLowerCase().includes(searchWord.toLowerCase().trim()));
-  
+        recipe.category
+          .toLowerCase()
+          .includes(searchWord.toLowerCase().trim()));
+
     return resultCategory && resultSearch;
   });
-  
-  
 
   return (
     <div className="container py-5">
@@ -87,6 +89,13 @@ const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
                   onClick={() => onClickDel(recipe.id)}
                 >
                   Delete
+                </button>
+                <button
+                className={`btn ${recipe.liked ? "btn-danger" : "btn-outline-danger"}`}
+                style={{ width: "40%", textAlign: "center" }}
+                onClick={() => handleLiked(recipe.id)}
+              >
+                Like
                 </button>
               </div>
             </div>

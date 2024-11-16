@@ -29,6 +29,19 @@ export default function RecipeList() {
     }
   }, []);
 
+  const handleLike = (recipeId) => {
+    const updatedRecipes = recipes.map((recipe) => {
+      if (recipe.id === recipeId) {
+        const updatedLikes = recipe.likes + 1;
+        return { ...recipe, likes: updatedLikes };
+      }
+      return recipe;
+    });
+
+    setRecipes(updatedRecipes);
+    localStorage.setItem("recipe", JSON.stringify(updatedRecipes)); // 업데이트된 데이터 저장
+  };
+
   const handleClick = () => {
     navigate("/recipes/new");
   };
