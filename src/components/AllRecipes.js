@@ -95,7 +95,7 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
                 style={{ width: "40%", textAlign: "center" }}
                 onClick={() => handleLiked(recipe.id)}
               >
-                Like
+                ♥
                 </button>
               </div>
             </div>
