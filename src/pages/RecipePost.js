@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "../Custom.css";
 
 export default function RecipePost() {
     const categories = [
@@ -161,7 +162,7 @@ export default function RecipePost() {
                 </div>
                 <div className="mb-3">
                     <label for="img" className="form-label">Image</label>
-                    <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
+                    <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} style={{ border: '1px solid red'}}/>
                 </div>
                 {
                     recipe.image && (

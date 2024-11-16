@@ -108,7 +108,7 @@ export default function RecipeList() {
               type="button"
               className="btn btn-primary my-3"
               onClick={handleClick}
-              style={{ width: "30%" }}
+              style={{ width: "30%", height: 'auto' }}
             >
               ADD
             </button>

@@ -77,7 +77,7 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
                     <p className="card-text">
                       <strong>Category:</strong> {recipe.category}
                     </p>
-                    <p className="card-text">
+                    <p className="card-text" style={{ paddingBottom: '10px'}}>
                       <strong>Likes:</strong> {recipe.likes}
                     </p>
                   </div>
