@@ -351,6 +351,7 @@ body,
 
 /* aside category */
 .categories-sidebar {
+    margin-top: 130px;
     border-radius: 15px;
     padding: 20px;
   }

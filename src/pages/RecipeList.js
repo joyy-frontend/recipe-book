@@ -91,7 +91,7 @@ export default function RecipeList() {
       <div className="row">
         <aside className="col-md-3 d-none d-md-block">
           <div className="categories-sidebar">
-            <h2 className="categories-title">Categories</h2>
+            {/* <h2 className="categories-title">Categories</h2> */}
             <div className="category-buttons">
               {categories.map((cate) => (
                 <button
