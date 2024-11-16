@@ -17,8 +17,14 @@ export default function App() {
     password: "",
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(initialUserState);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('user') !== null;
+  });
+  const [user, setUser] = useState(() => {
+    // localStorage에서 user 정보 복원
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

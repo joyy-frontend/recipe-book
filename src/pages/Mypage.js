@@ -3,15 +3,26 @@ import Formcomponent from "../components/Formcomponent";
 import defaultProfile from "../assets/images/default-profile.png";
 import "../Custom.css";
 import logoImage from "../assets/images/logo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Mypage({ user, userChange, updateUser }) {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [profileImage, setProfileImage] = useState(
     user?.profileImage || defaultProfile
   );
   const [likedRecipes, setLikedRecipes] = useState([]);
+  const [uploadedRecipes, setUploadedRecipes] = useState([]);
 
   useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    if (!user) return;  // user가 없으면 실행하지 않음
+
     const localStoragedData = JSON.parse(localStorage.getItem("recipe"));
 
     if (localStoragedData) {
@@ -19,12 +30,15 @@ export default function Mypage({ user, userChange, updateUser }) {
         ? localStoragedData
         : [localStoragedData];
 
+      const uploadedRecipesData = processedData.filter(
+        (recipe) => recipe.user === user.email
+      );
+      setUploadedRecipes(uploadedRecipesData);
+
       const likedRecipesData = processedData.filter((recipe) => recipe.liked);
-      setLikedRecipes(likedRecipesData); // 좋아요 상태인 레시피만 저장
-    } else {
-      setLikedRecipes([]);
+      setLikedRecipes(likedRecipesData);
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setProfileImage(user?.profileImage || defaultProfile);
@@ -180,6 +194,40 @@ export default function Mypage({ user, userChange, updateUser }) {
               </div>
             </div>
           )}
+        </section>
+        <section className="my-4">
+          <h4 className="mb-4">Uploaded Recipes</h4>
+          <div className="row g-3">
+            {uploadedRecipes.length > 0 ? (
+              uploadedRecipes.map((recipe) => (
+                <div key={recipe.id} className="col-md-4">
+                  <div className="card h-100">
+                    <img
+                      src={recipe.image ? recipe.image : logoImage}
+                      alt={recipe.title}
+                      style={{ height: "200px", objectFit: "cover" }}
+                    />
+                    <div className="card-body">
+                      <h4 className="card-title">{recipe.title}</h4>
+                      <p
+                        className="card-text"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: "2",
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {recipe.content}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center">No uploaded recipes yet.</p>
+            )}
+          </div>
         </section>
         <section className="my-4">
           <h4 className="mb-4">Liked Recipes</h4>
