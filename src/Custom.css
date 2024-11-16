@@ -126,6 +126,7 @@ body,
 
 .hero-btn {
     background-color: var(--deep-orange);
+    text-decoration: none;
     color: white;
     border: none;
     padding: 15px 30px;
@@ -169,6 +170,68 @@ body,
 .hero-image img:hover {
     transform: translateY(-10px);
 }
+
+.categories-section {
+    padding: 60px 20px;
+}
+
+.categories-title {
+    text-align: center;
+    font-family: var(--sub-font);
+    font-weight: 800;
+    color: var(--deep-orange);
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    padding-bottom: 30px;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.category-card {
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+}
+
+.category-image-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-image {
+    transform: scale(1.1);
+}
+
+.category-name {
+    font-family: var(--main-font);
+    font-size: 1.2rem;
+    color: var(--light-green);
+    margin: 0;
+}
+
 
 
 /* login */
@@ -522,6 +585,15 @@ body,
     
     .nav-logo {
         height: 30px;  
+    }
+
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .category-image-container {
+        width: 120px;
+        height: 120px;
     }
 
     .footer-section {
