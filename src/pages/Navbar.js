@@ -32,8 +32,8 @@ export default function Navbar({ isLoggedIn, onLogout }) {
         <div className="collapse navbar-collapse" id="navbarNav">
             {
               isLoggedIn &&
-              <div className="nav-link" style={{ whiteSpace: 'nowrap', paddingTop:'10px' }}>
-                <h4 className="nav-link">{currentUser}, logged in!!</h4>
+              <div className="nav-link" style={{ whiteSpace: 'nowrap', paddingTop: '20px'}}>
+                <p style={{ color: '#C86322' }}>{currentUser}, logged in!</p>
               </div>
             }
           <ul className="navbar-nav ms-auto align-items-center">  {/* ms-auto로 오른쪽 정렬 */}
