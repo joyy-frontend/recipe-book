@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import "../Custom.css";
 import logo from "../assets/images/logo.png";
+import { useEffect, useState } from "react";
 
 export default function Navbar({ isLoggedIn, onLogout }) {
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user) {
+      setCurrentUser(user.email);
+    }
+  }, [])
   return (
     <nav className="navbar navbar-expand-sm navbar-light">
       <div className="container">
@@ -22,6 +30,12 @@ export default function Navbar({ isLoggedIn, onLogout }) {
 
         {/* nav menu */}
         <div className="collapse navbar-collapse" id="navbarNav">
+            {
+              isLoggedIn &&
+              <div className="nav-link" style={{ whiteSpace: 'nowrap', paddingTop: '20px'}}>
+                <p style={{ color: '#C86322' }}>{currentUser}, logged in!</p>
+              </div>
+            }
           <ul className="navbar-nav ms-auto align-items-center">  {/* ms-auto로 오른쪽 정렬 */}
             <li className="nav-item">
               <Link className="nav-link" to="/">

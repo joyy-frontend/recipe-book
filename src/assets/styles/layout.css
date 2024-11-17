@@ -18,4 +18,13 @@
   padding-bottom: 30px;
 }
 
+.edit-mode {
+  width: 39%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
