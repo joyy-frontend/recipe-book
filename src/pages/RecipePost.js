@@ -78,6 +78,11 @@ export default function RecipePost() {
         });
     };
 
+    const onClickEdit = () => {
+        // console.log(isEditStatus);
+        setIsEditStatus(true);
+    }
+
 
     useEffect(() => {
     if (recipeId) {
@@ -108,20 +113,27 @@ useEffect(() => {
     setDate(today);
 }, [recipeId]);
 
-useEffect(() => {
-    if (recipeUser && currentUser) {
-        if (recipeUser === currentUser.email) {
-            setIsEditStatus(true);
-        } else {
-            setIsEditStatus(false);
-        }
-    }
-}, [recipeUser, currentUser]);
+// useEffect(() => {
+//     if (recipeUser && currentUser) {
+//         if (recipeUser === currentUser.email) {
+//             setIsEditStatus(true);
+//         } else {
+//             setIsEditStatus(false);
+//         }
+//     }
+// }, [recipeUser, currentUser]);
 
     return (
         <div className="container mt-5">
             <h1 className="text-center mb-4">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
+            <div className="col-12 edit-mode">
+            {
+                recipeUser === currentUser.email && !isEditStatus &&
+                <button className="btn btn-primary" onClick={onClickEdit}>Change Edit Mode</button>
+            }
+            </div>
             <form className="form-container" onSubmit={handleSubmit}>
+                <div>{isEditStatus}</div>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input 
@@ -142,7 +154,7 @@ useEffect(() => {
                         id="user" 
                         onChange={(e) => setRecipe({...recipe, user: e.target.value })} 
                         value={recipe.user} 
-                        readOnly 
+                        readOnly
                     />
                 </div>
                 <div className="mb-3">
