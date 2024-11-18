@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import "../Custom.css";
 
-export default function Footer() {
+export default function Footer({ isLoggedIn }) {
   return (
     <footer className="footer-container">
       <div className="container">
         <div className="row">
           <div className="col-md-4 footer-section">
             <h5 className="footer-title">About Us</h5>
-            <p className="footer-text">Tamwood React Class</p>
+            <p className="footer-text">Welcome to Cookit, created by Joy, Yun, and Mina from Tamwood's React Development Program. We're passionate about bringing people together through the joy of cooking. Our platform aims to make recipe sharing simple, fun and accessible to everyone.
+            </p>
           </div>
           <div className="col-md-4 footer-section">
             <h5 className="footer-title">Quick Links</h5>
@@ -19,15 +20,32 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/login">
-                  <i className="fas fa-sign-in-alt"></i> Login
+                <Link to="/recipes">
+                  <i className="fas fa-utensils"></i> Recipes
                 </Link>
               </li>
-              <li>
-                <Link to="/dash">
-                  <i className="fas fa-chart-line"></i> Dashboard
-                </Link>
-              </li>
+              {isLoggedIn? (
+                <>
+                  <li>
+                    <Link to="/mypage">
+                      <i className="fas fa-sign-in-alt"></i> Mypage
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login">
+                      <i className="fas fa-sign-in-alt"></i> Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/register">
+                      <i className="fas fa-registered"></i> Register
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
           <div className="col-md-4 footer-section">
@@ -45,7 +63,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Tamwood Assignment</p>
+          <p>© {new Date().getFullYear()} Built with React.js | Final Project 2024</p>
         </div>
       </div>
     </footer>

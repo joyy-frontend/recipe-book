@@ -17,7 +17,7 @@ export default function Master({ isLoggedIn, user, onLogout }) {
             <main className="main-content">
                 <Outlet />
             </main>
-            <Footer />
+            <Footer isLoggedIn={isLoggedIn} />
         </div>
     );
 }

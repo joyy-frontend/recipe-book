@@ -80,7 +80,7 @@ export default function RecipeList() {
       'Salad': 'fa-leaf',
       'Dessert': 'fa-ice-cream',
       'Vegetarian': 'fa-carrot',
-      'Soup': 'fa-hotdog',
+      'Soup': 'fa-mug-hot',
       'Seafood': 'fa-fish'
     };
     return icons[category] || 'fa-th-large';
