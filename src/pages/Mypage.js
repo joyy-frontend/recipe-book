@@ -13,25 +13,23 @@ export default function Mypage({ user, userChange, updateUser }) {
   );
   const [likedRecipes, setLikedRecipes] = useState([]);
   const [uploadedRecipes, setUploadedRecipes] = useState([]);
-  
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
     }
   }, [user, navigate]);
 
   useEffect(() => {
     if (!user) return;
-  
+
     const localStoragedData = JSON.parse(localStorage.getItem("recipe")) || [];
-  
+
     const likedRecipesData = localStoragedData.filter((recipe) =>
       recipe.likedBy?.includes(user.email)
     );
     setLikedRecipes(likedRecipesData);
   }, [user]);
-  
 
   useEffect(() => {
     setProfileImage(user?.profileImage || defaultProfile);
@@ -189,56 +187,60 @@ export default function Mypage({ user, userChange, updateUser }) {
           )}
         </section>
         <section className="recipes-section-green">
-      <h4 className="section-title-green">Uploaded Recipes</h4>
-      <div className="recipe-grid">
-        {uploadedRecipes.length > 0 ? (
-          uploadedRecipes.map((recipe) => (
-            <div key={recipe.id} className="recipe-card">
-              <img
-                src={recipe.image ? recipe.image : logoImage}
-                alt={recipe.title}
-                className="recipe-image"
-              />
-              <div className="recipe-content">
-                <h4 className="recipe-title">{recipe.title}</h4>
-                <p className="recipe-description">{recipe.content}</p>
+          <h4 className="section-title-green">Uploaded Recipes</h4>
+          <div className="recipe-grid">
+            {uploadedRecipes.length > 0 ? (
+              uploadedRecipes.map((recipe) => (
+                <div key={recipe.id} className="recipe-card">
+                  <img
+                    src={recipe.image ? recipe.image : logoImage}
+                    alt={recipe.title}
+                    className="recipe-image"
+                  />
+                  <div className="recipe-content">
+                    <h4 className="recipe-title">{recipe.title}</h4>
+                    <p className="recipe-description">{recipe.content}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no-recipes">
+                <i className="fas fa-utensils d-block"></i>
+                No uploaded recipes yet.
               </div>
-            </div>
-          ))
-        ) : (
-          <div className="no-recipes">
-            <i className="fas fa-utensils d-block"></i>
-            No uploaded recipes yet.
+            )}
           </div>
-        )}
-      </div>
-    </section>
+        </section>
 
-         <section className="recipes-section">
-      <h4 className="section-title">Liked Recipes</h4>
-      <div className="recipe-grid">
-        {likedRecipes.length > 0 ? (
-          likedRecipes.map((recipe) => (
-            <div key={recipe.id} className="recipe-card">
-              <img
-                src={recipe.image ? recipe.image : logoImage}
-                alt={recipe.title}
-                className="recipe-image"
-              />
-              <div className="recipe-content">
-                <h4 className="recipe-title">{recipe.title}</h4>
-                <p className="recipe-description">{recipe.content}</p>
+        <section className="recipes-section">
+          <h4 className="section-title">Liked Recipes</h4>
+          <div className="recipe-grid">
+            {likedRecipes.length > 0 ? (
+              likedRecipes.map((recipe) => (
+                <div
+                key={recipe.id}
+                className="recipe-card"
+                onClick={() => navigate(`/recipes/${recipe.id}`)}
+              >
+                  <img
+                    src={recipe.image ? recipe.image : logoImage}
+                    alt={recipe.title}
+                    className="recipe-image"
+                  />
+                  <div className="recipe-content">
+                    <h4 className="recipe-title">{recipe.title}</h4>
+                    <p className="recipe-description">{recipe.content}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no-recipes">
+                <i className="fas fa-heart d-block"></i>
+                No liked recipes yet.
               </div>
-            </div>
-          ))
-        ) : (
-          <div className="no-recipes">
-            <i className="fas fa-heart d-block"></i>
-            No liked recipes yet.
+            )}
           </div>
-        )}
-      </div>
-    </section>
+        </section>
       </div>
     </div>
   );
