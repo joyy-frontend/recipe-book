@@ -11,7 +11,7 @@ export default function Navbar({ isLoggedIn, onLogout }) {
     if(user) {
       setCurrentUser(user.email);
     }
-  }, [currentUser])
+  }, [])
   return (
     <nav className="navbar navbar-expand-sm navbar-light">
       <div className="container">
