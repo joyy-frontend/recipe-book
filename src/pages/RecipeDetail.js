@@ -25,20 +25,22 @@ export default function RecipeDetail() {
 
   return (
     <div className="container mt-5">
-    <div className="recipe-detail">
-      <div className="recipe-image mb-4 text-center">
-        <img
-          src={recipe.image}
-          alt={recipe.title}
-          
-        />
-      </div>
-
-      <div className="recipe-meta text-center mb-4">
+      <div className="recipe-detail">
+        <div className="text-center mb-4">
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="img-fluid rounded"
+            style={{ maxHeight: "400px", objectFit: "cover" }}
+          />
+        </div>
+  
+        <div className="recipe-meta text-center mb-5">
           <h1 className="fw-bold">{recipe.title}</h1>
           <p className="text-muted">Recipe by: {recipe.user}</p>
         </div>
-        <div className="row mb-4 text-center">
+  
+        <div className="row text-center mb-4">
           <div className="col-md-6">
             <h6 className="fw-bold">Category</h6>
             <p className="badge bg-primary">{recipe.category}</p>
@@ -47,13 +49,14 @@ export default function RecipeDetail() {
             <h6 className="fw-bold">Likes</h6>
             <p className="badge bg-danger">{recipe.likes}</p>
           </div>
-
-          <div className="recipe-content">
-          <h3 className="fw-bold mb-3">How to make?</h3>
+        </div>
+        
+        <div className="recipe-content">
+          <h3 className="fw-bold mb-3 text-center">How to make?</h3>
           <p>{recipe.content}</p>
         </div>
       </div>
     </div>
-    </div>
   );
+  
 }

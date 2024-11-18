@@ -13,6 +13,7 @@ export default function Mypage({ user, userChange, updateUser }) {
   );
   const [likedRecipes, setLikedRecipes] = useState([]);
   const [uploadedRecipes, setUploadedRecipes] = useState([]);
+  
 
   useEffect(() => {
     if (!user) {
@@ -21,24 +22,16 @@ export default function Mypage({ user, userChange, updateUser }) {
   }, [user, navigate]);
 
   useEffect(() => {
-    if (!user) return;  // user가 없으면 실행하지 않음
-
-    const localStoragedData = JSON.parse(localStorage.getItem("recipe"));
-
-    if (localStoragedData) {
-      const processedData = Array.isArray(localStoragedData)
-        ? localStoragedData
-        : [localStoragedData];
-
-      const uploadedRecipesData = processedData.filter(
-        (recipe) => recipe.user === user.email
-      );
-      setUploadedRecipes(uploadedRecipesData);
-
-      const likedRecipesData = processedData.filter((recipe) => recipe.liked);
-      setLikedRecipes(likedRecipesData);
-    }
+    if (!user) return;
+  
+    const localStoragedData = JSON.parse(localStorage.getItem("recipe")) || [];
+  
+    const likedRecipesData = localStoragedData.filter((recipe) =>
+      recipe.likedBy?.includes(user.email)
+    );
+    setLikedRecipes(likedRecipesData);
   }, [user]);
+  
 
   useEffect(() => {
     setProfileImage(user?.profileImage || defaultProfile);

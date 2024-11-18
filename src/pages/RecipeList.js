@@ -11,38 +11,23 @@ export default function RecipeList() {
   useEffect(() => {
     const localStoragedData = JSON.parse(localStorage.getItem("recipe"));
 
-   // 데이터가 배열이 아닌 경우 배열로 감싸서 설정함. --> filter()할때 배열로 받아와야되어서..
     if (localStoragedData) {
       const processedData = Array.isArray(localStoragedData)
         ? localStoragedData
         : [localStoragedData];
 
-       // localstorage 객체를 불러올때 순차적으로 id를 추가해서 저장함--> 안 추가하면 map돌릴때 warning 떠서 가져올때 id도 같이 배열에 저장함.
       const dataWithId = processedData.map((recipe, index) => ({
         ...recipe,
         id: recipe.id || index + 1,
-        liked: recipe.liked || false, //기본값
+        liked: recipe.liked || false, 
       }));
 
       setRecipes(dataWithId);
     } else {
-      setRecipes([]); // localStorage에 데이터가 없으면 빈 배열로 설정함. 
+      setRecipes([]); 
     }
   }, []);
 
-  const handleLiked = (recipeId) => {
-    const updatedRecipes = recipes.map((recipe) => {
-      if (recipe.id === recipeId) {
-        const updatedLikes = recipe.liked ? recipe.likes - 1 : recipe.likes + 1; // 좋아요 상태에 따라 증가/감소
-        return { ...recipe, likes: updatedLikes, liked: !recipe.liked }; // liked 상태 업데이트
-      }
-      return recipe;
-    });
-  
-    setRecipes(updatedRecipes);
-    localStorage.setItem("recipe", JSON.stringify(updatedRecipes));
-  };
-  
 
   const handleClick = () => {
     navigate("/recipes/new");
@@ -134,7 +119,6 @@ export default function RecipeList() {
           category={category} 
           PropsRecipes={recipes} 
           searchWord={searchWord} 
-          handleLiked={handleLiked} 
         />
       </main>
       </div>
