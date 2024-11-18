@@ -1,72 +1,62 @@
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function RecipeDetail() {
-    const { id } = useParams();
-    return (
-        <>
-            <h1>RecipeDetail {id}</h1>
-            <div className="container mt-5">
-            <h1 className="text-center mb-4">RecipePost</h1>
-            <form className="form-container" onSubmit={handleSubmit}>
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="title" 
-                        onChange={(e) => setRecipe({...recipe, title: e.target.value })} 
-                        value={recipe.title}
-                        required 
-                    />
-                </div>
-                <div class="mb-3">
-                    <label for="user" class="form-label">User</label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="user" 
-                        onChange={(e) => setRecipe({...recipe, user: e.target.value })} 
-                        value={recipe.user} 
-                        required 
-                    />
-                </div>
-                <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea 
-                        class="form-control" 
-                        id="content" 
-                        rows="3" 
-                        onChange={(e) => setRecipe({...recipe, content: e.target.value })} 
-                        value={recipe.content}  
-                        required
-                    ></textarea>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select" id="category" value={recipe.category} onChange={(e) => setRecipe({...recipe, category: e.target.category })}required>
-                        <option value="">Select Category</option>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="appetizer">Appetizer</option>
-                        <option value="salad">Salad</option>
-                        <option value="dessert">Dessert</option>
-                        <option value="vegetarian">Vegetarian</option>
-                        <option value="soup">Soup</option>
-                        <option value="seafood">Seafood</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" value={date} readOnly/>
-                </div>
-                <div class="mb-3">
-                    <label for="img" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="img" accept="image/*" onChange={handleImageChange} />
-                </div>
-                <button type="submit" class="btn btn-primary">{recipeId ? "Update Recipe" : "Create Recipe"}</button>
-            </form>
+  const { id } = useParams();
+  const [recipe, setRecipe] = useState(null);
+
+  useEffect(() => {
+    const storedRecipes = JSON.parse(localStorage.getItem("recipe")) || [];
+    console.log("Stored Recipes:", storedRecipes);
+
+    const foundRecipe = storedRecipes.find((item) => item.id === parseInt(id));
+    console.log("ID from URL Params:", id);
+
+    if (foundRecipe) {
+      setRecipe(foundRecipe);
+    } else {
+      alert("Recipe not found!");
+    }
+  }, [id]);
+
+  if (!recipe) {
+    return <div className="container mt-5">Loading recipe details...</div>;
+  }
+
+  return (
+    <div className="container mt-5">
+      <div className="recipe-detail">
+        <div className="text-center mb-4">
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="img-fluid rounded"
+            style={{ maxHeight: "400px", objectFit: "cover" }}
+          />
         </div>
-        </>
-    );
+  
+        <div className="recipe-meta text-center mb-5">
+          <h1 className="fw-bold">{recipe.title}</h1>
+          <p className="text-muted">Recipe by: {recipe.user}</p>
+        </div>
+  
+        <div className="row text-center mb-4">
+          <div className="col-md-6">
+            <h6 className="fw-bold">Category</h6>
+            <p className="badge bg-primary">{recipe.category}</p>
+          </div>
+          <div className="col-md-6">
+            <h6 className="fw-bold">Likes</h6>
+            <p className="badge bg-danger">{recipe.likes}</p>
+          </div>
+        </div>
+        
+        <div className="recipe-content">
+          <h3 className="fw-bold mb-3 text-center">How to make?</h3>
+          <p>{recipe.content}</p>
+        </div>
+      </div>
+    </div>
+  );
+  
 }

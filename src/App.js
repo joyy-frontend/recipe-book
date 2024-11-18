@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import RecipeList from "./pages/RecipeList";
 import Mypage from "./pages/Mypage";
 import RecipePost from "./pages/RecipePost";
+import RecipeDetail from "./pages/RecipeDetail";
 
 export default function App() {
   const initialUserState = {
@@ -112,7 +113,7 @@ export default function App() {
             }
           />
           <Route path="recipes" element={<RecipeList />} />
-          <Route path="recipes/:recipeId" element={<RecipePost />} />
+          <Route path="/recipes/:id" element={<RecipeDetail />} />
           <Route path="recipes/new" element={<RecipePost />} />
         </Route>
       </Routes>
