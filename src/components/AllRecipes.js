@@ -13,7 +13,9 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
-    setCurrentUser(currentUser.email);
+    if(currentUser) {
+      setCurrentUser(currentUser.email);
+    }
   }, []);
 
   const onClickDel = (recipeId) => {
