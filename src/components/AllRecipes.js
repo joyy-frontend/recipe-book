@@ -65,7 +65,6 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
 
   return (
     <div className="container py-5">
-      <h2 className="text-center mb-4">All Recipes</h2>
       <div className="row g-4">
         {filteredRecipes.length > 0 ? (
           filteredRecipes.map((recipe) => (
@@ -75,42 +74,51 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
                   <img
                     src={recipe.image ? recipe.image : logoImage}
                     alt={recipe.title}
-                    style={{ width: "250px", height: "250px" }}
+                    className="recipe-image"
                   />
-                  <div>
+                  <div className="recipe-content">
                     <h3 className="card-title">{recipe.title}</h3>
-                    <p className="card-text">Recipe by {recipe.user}</p>
                     <p className="card-text">
+                      <i className="fas fa-user me-2"></i>
+                      Recipe by {recipe.user}
+                    </p>
+                    <p className="card-text">
+                      <i className="fas fa-tag me-2"></i>
                       <strong>Category:</strong> {recipe.category}
                     </p>
-                    <p className="card-text" style={{ paddingBottom: '10px'}}>
+                    <p className="card-text">
+                      <i className="fas fa-heart me-2"></i>
                       <strong>Likes:</strong> {recipe.likes}
                     </p>
                   </div>
                 </Link>
-                {
-                  recipe.user === currentUser &&
+                <div className="recipe-buttons">
+                  {recipe.user === currentUser && (
+                    <button
+                      type="button"
+                      className="recipe-btn delete-btn"
+                      onClick={() => onClickDel(recipe.id)}
+                    >
+                      <i className="fas fa-trash-alt me-2"></i>
+                      Delete
+                    </button>
+                  )}
                   <button
-                    type="button"
-                    className="btn btn-outline-primary"
-                    style={{ width: "40%", textAlign: "center" }}
-                    onClick={() => onClickDel(recipe.id)}
+                    className={`recipe-btn like-btn ${recipe.liked ? "active" : ""}`}
+                    onClick={() => handleLiked(recipe.id)}
                   >
-                    Delete
+                    <i className="fas fa-heart me-2"></i>
+                    {recipe.liked ? "Liked" : "Like"}
                   </button>
-                }
-                <button
-                className={`btn ${recipe.liked ? "btn-danger" : "btn-outline-danger"}`}
-                style={{ width: "40%", textAlign: "center" }}
-                onClick={() => handleLiked(recipe.id)}
-              >
-                ♥
-                </button>
+                </div>
               </div>
             </div>
           ))
         ) : (
-          <div className="text-center mt-6">There is no Data</div>
+          <div className="no-data">
+            <i className="fas fa-search mb-3 d-block" style={{fontSize: "2rem"}}></i>
+            There is no Data
+          </div>
         )}
       </div>
     </div>

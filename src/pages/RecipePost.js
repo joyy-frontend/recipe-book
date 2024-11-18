@@ -8,6 +8,7 @@ export default function RecipePost() {
         "salad", "dessert", "vegetarian", "soup", "seafood"
     ];
     const navigate = useNavigate();
+    const [isAddStatus, setIsAddStatus] = useState(false);
     const [isEditStatus, setIsEditStatus] = useState(false);
     const [recipeUser, setRecipeUser] = useState('');
     const [date, setDate] = useState('');
@@ -79,49 +80,46 @@ export default function RecipePost() {
     };
 
     const onClickEdit = () => {
-        // console.log(isEditStatus);
         setIsEditStatus(true);
     }
 
 
     useEffect(() => {
-    if (recipeId) {
-        const storageData = JSON.parse(localStorage.getItem('recipe')) || [];
-        const currentData = storageData.find(item => item.id === parseInt(recipeId));
-        if (currentData) {
-            setRecipe(currentData);
+        if (recipeId) {
+            const storageData = JSON.parse(localStorage.getItem('recipe')) || [];
+            const currentData = storageData.find(item => item.id === parseInt(recipeId));
+            if (currentData) {
+                setRecipe(currentData);
+            }
         }
-    }
-}, [recipeId]);
+    }, [recipeId]);
 
-useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const recipeUser = JSON.parse(localStorage.getItem('recipe'));
-    if(recipeUser) {
-        setRecipeUser(recipeUser[recipeId-1].user);
-    }
-    if (user) {
-        setRecipe((prev) => ({ ...prev, user: user.email }));
-        setCurrentUser(user);
-       
-    } else {
-        alert("Please Login first");
-        navigate(-1);
-    }
-    
-    const today = new Date().toISOString().split("T")[0];
-    setDate(today);
-}, [recipeId]);
-
-// useEffect(() => {
-//     if (recipeUser && currentUser) {
-//         if (recipeUser === currentUser.email) {
-//             setIsEditStatus(true);
-//         } else {
-//             setIsEditStatus(false);
-//         }
-//     }
-// }, [recipeUser, currentUser]);
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const recipeUser = JSON.parse(localStorage.getItem('recipe'));
+        if(recipeUser && Array.isArray(recipeUser)) {
+            const recipe = recipeUser[recipeId-1];
+            if(recipe) {
+                setRecipeUser(recipe.user);
+            } else {
+                setIsAddStatus(true);
+                setIsEditStatus(true);
+            }
+        } else {
+            console.log('No recipes found in localStorage or invalid data structure');
+        } 
+        if (user) {
+            setRecipe((prev) => ({ ...prev, user: user.email }));
+            setCurrentUser(user);
+        
+        } else {
+            alert("Please Login first");
+            navigate(-1);
+        }
+        
+        const today = new Date().toISOString().split("T")[0];
+        setDate(today);
+    }, [recipeId]);
 
     return (
         <div className="container mt-5">
@@ -205,8 +203,12 @@ useEffect(() => {
                     </div>
                 )}
                 {
-                    isEditStatus &&
+                    isEditStatus && !isAddStatus &&
                     <button type="submit" className="btn btn-primary">Update Recipe</button>
+                }
+                {
+                    isAddStatus &&
+                    <button type="submit" className="btn btn-primary">Create Recipe</button>
                 }
             </form>
         </div>

@@ -195,74 +195,57 @@ export default function Mypage({ user, userChange, updateUser }) {
             </div>
           )}
         </section>
-        <section className="my-4">
-          <h4 className="mb-4">Uploaded Recipes</h4>
-          <div className="row g-3">
-            {uploadedRecipes.length > 0 ? (
-              uploadedRecipes.map((recipe) => (
-                <div key={recipe.id} className="col-md-4">
-                  <div className="card h-100">
-                    <img
-                      src={recipe.image ? recipe.image : logoImage}
-                      alt={recipe.title}
-                      style={{ height: "200px", objectFit: "cover" }}
-                    />
-                    <div className="card-body">
-                      <h4 className="card-title">{recipe.title}</h4>
-                      <p
-                        className="card-text"
-                        style={{
-                          display: "-webkit-box",
-                          WebkitLineClamp: "2",
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {recipe.content}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center">No uploaded recipes yet.</p>
-            )}
+        <section className="recipes-section-green">
+      <h4 className="section-title-green">Uploaded Recipes</h4>
+      <div className="recipe-grid">
+        {uploadedRecipes.length > 0 ? (
+          uploadedRecipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <img
+                src={recipe.image ? recipe.image : logoImage}
+                alt={recipe.title}
+                className="recipe-image"
+              />
+              <div className="recipe-content">
+                <h4 className="recipe-title">{recipe.title}</h4>
+                <p className="recipe-description">{recipe.content}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="no-recipes">
+            <i className="fas fa-utensils d-block"></i>
+            No uploaded recipes yet.
           </div>
-        </section>
-        <section className="my-4">
-          <h4 className="mb-4">Liked Recipes</h4>
-          <div className="row g-3">
-            {likedRecipes.length > 0 ? (
-              likedRecipes.map((recipe) => (
-                <div key={recipe.id} className="col-md-4">
-                  <div className="card h-100">
-                    <img
-                      src={recipe.image ? recipe.image : logoImage}
-                      alt={recipe.title}
-                      style={{ height: "200px", objectFit: "cover" }}
-                    />
-                    <div className="card-body">
-                      <h4 className="card-title">{recipe.title}</h4>
-                      <p
-                        className="card-text"
-                        style={{
-                          display: "-webkit-box",
-                          WebkitLineClamp: "2", 
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {recipe.content}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center">No liked recipes yet.</p>
-            )}
+        )}
+      </div>
+    </section>
+
+         <section className="recipes-section">
+      <h4 className="section-title">Liked Recipes</h4>
+      <div className="recipe-grid">
+        {likedRecipes.length > 0 ? (
+          likedRecipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <img
+                src={recipe.image ? recipe.image : logoImage}
+                alt={recipe.title}
+                className="recipe-image"
+              />
+              <div className="recipe-content">
+                <h4 className="recipe-title">{recipe.title}</h4>
+                <p className="recipe-description">{recipe.content}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="no-recipes">
+            <i className="fas fa-heart d-block"></i>
+            No liked recipes yet.
           </div>
-        </section>
+        )}
+      </div>
+    </section>
       </div>
     </div>
   );
