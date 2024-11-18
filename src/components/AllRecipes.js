@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoImage from "../assets/images/logo.png";
 
-const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
+const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
   const [recipes, setRecipes] = useState(PropsRecipes);
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +13,9 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("user"));
-    setCurrentUser(currentUser.email);
+    if(currentUser) {
+      setCurrentUser(currentUser.email);
+    }
   }, []);
 
   const onClickDel = (recipeId) => {
@@ -30,7 +32,6 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
   };
 
   const filteredRecipes = recipes.filter((recipe) => {
-    // category가 배열이 아니면 배열로 바꿔야됨 --> map돌릴거라서
     const arrayCategories = Array.isArray(category)
       ? category.map((cate) => cate.toLowerCase().trim())
       : [category.toLowerCase().trim()];
@@ -38,8 +39,7 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
     const recipeCategories = recipe.category
       .toLowerCase()
       .split(",")
-      .map((cate) => cate.trim()); // ,(컴마) 기준으로 자름. "salad, appetizer" -> ["salad", "appetizer"]
-    console.log(recipeCategories);
+      .map((cate) => cate.trim());
 
     const resultCategory =
       arrayCategories.includes("all") ||
@@ -62,6 +62,28 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
 
     return resultCategory && resultSearch;
   });
+
+  const handleLiked = (recipeId) => {
+    const updatedRecipes = recipes.map((recipe) => {
+      if (recipe.id === recipeId) {
+        const alreadyLiked = recipe.likedBy?.includes(currentUser); // 좋아요 여부 확인
+        const updatedLikedBy = alreadyLiked
+          ? recipe.likedBy.filter((email) => email !== currentUser) // 좋아요 취소
+          : [...(recipe.likedBy || []), currentUser]; // 좋아요 추가
+
+        return {
+          ...recipe,
+          likedBy: updatedLikedBy,
+          likes: updatedLikedBy.length, // 좋아요 수 갱신
+        };
+      }
+      return recipe;
+    });
+
+    // 상태 및 localStorage 업데이트
+    setRecipes(updatedRecipes);
+    localStorage.setItem("recipe", JSON.stringify(updatedRecipes));
+  };
 
   return (
     <div className="container py-5">
@@ -104,11 +126,13 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
                     </button>
                   )}
                   <button
-                    className={`recipe-btn like-btn ${recipe.liked ? "active" : ""}`}
+                    className={`recipe-btn like-btn ${
+                      recipe.likedBy?.includes(currentUser) ? "active" : ""
+                    }`}
                     onClick={() => handleLiked(recipe.id)}
                   >
                     <i className="fas fa-heart me-2"></i>
-                    {recipe.liked ? "Liked" : "Like"}
+                    {recipe.likedBy?.includes(currentUser) ? "Liked" : "Like"}
                   </button>
                 </div>
               </div>
@@ -116,7 +140,10 @@ const AllRecipes = ({ category, PropsRecipes, searchWord, handleLiked }) => {
           ))
         ) : (
           <div className="no-data">
-            <i className="fas fa-search mb-3 d-block" style={{fontSize: "2rem"}}></i>
+            <i
+              className="fas fa-search mb-3 d-block"
+              style={{ fontSize: "2rem" }}
+            ></i>
             There is no Data
           </div>
         )}

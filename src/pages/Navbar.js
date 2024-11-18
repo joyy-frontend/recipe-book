@@ -7,6 +7,7 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   const [currentUser, setCurrentUser] = useState('');
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
     if(user) {
       console.log(user);
       setCurrentUser(user.email);

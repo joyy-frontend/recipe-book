@@ -21,7 +21,8 @@ export default function RecipePost() {
         content: '', 
         category: '', 
         image: '',
-        likes: 0 
+        likes: 0, 
+        date: ''
     });
     
     const handleSubmit = (e) => {
@@ -38,7 +39,7 @@ export default function RecipePost() {
                 alert("Recipe not found for editing");
             }
         } else {
-            const newData = { ...recipe, id: storageData.length + 1, likes: 0 };
+            const newData = { ...recipe, id: storageData.length + 1, likes: 0, date:recipe.date};
             storageData.push(newData);
             localStorage.setItem("recipe", JSON.stringify(storageData));
             alert("Recipe saved successfully");
@@ -118,8 +119,9 @@ export default function RecipePost() {
         }
         
         const today = new Date().toISOString().split("T")[0];
-        setDate(today);
-    }, [recipeId]);
+    setDate(today); // date 상태 업데이트
+    setRecipe((prev) => ({ ...prev, date: today })); // recipe 객체에 날짜 추가
+}, [recipeId]);
 
     return (
         <div className="container mt-5">
