@@ -7,10 +7,11 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   const [currentUser, setCurrentUser] = useState('');
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
     if(user) {
       setCurrentUser(user.email);
     }
-  }, [])
+  }, [currentUser])
   return (
     <nav className="navbar navbar-expand-sm navbar-light">
       <div className="container">
