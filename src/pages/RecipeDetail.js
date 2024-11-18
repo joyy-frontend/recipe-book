@@ -38,6 +38,7 @@ export default function RecipeDetail() {
         <div className="recipe-meta text-center mb-5">
           <h1 className="fw-bold">{recipe.title}</h1>
           <p className="text-muted">Recipe by: {recipe.user}</p>
+          <p className="text-muted">Date: {recipe.date}</p>
         </div>
   
         <div className="row text-center mb-4">
