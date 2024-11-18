@@ -29,6 +29,13 @@ export default function Mypage({ user, userChange, updateUser }) {
       recipe.likedBy?.includes(user.email)
     );
     setLikedRecipes(likedRecipesData);
+
+    // 사용자가 업로드한 레시피 필터링
+    const uploadedRecipesData = localStoragedData.filter(
+      (recipe) => recipe.user === user.email
+    );
+    setUploadedRecipes(uploadedRecipesData);
+
   }, [user]);
 
   useEffect(() => {
