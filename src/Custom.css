@@ -413,6 +413,120 @@ body,
     color: var(--light-green);
 }
 
+/* MyPage 스타일링 */
+.profile-section {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .recipes-section-green {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: var(--light-green);
+    border-radius: 15px;
+  }
+
+  .recipes-section {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: var(--bg-beige);
+    border-radius: 15px;
+  }
+  
+  .section-title-green {
+    font-family: var(--sub-font);
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid white;
+  }
+
+  .section-title {
+    font-family: var(--sub-font);
+    color: var(--deep-orange);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--light-orange);
+  }
+  
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .recipe-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+  
+  .recipe-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .recipe-card:hover .recipe-image {
+    transform: scale(1.05);
+  }
+  
+  .recipe-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .recipe-title {
+    font-family: var(--sub-font);
+    color: var(--deep-orange);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  
+  .recipe-description {
+    font-family: var(--main-font);
+    color: #666;
+    font-size: 0.95rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  
+  .no-recipes {
+    text-align: center;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    color: #666;
+    font-family: var(--main-font);
+    font-size: 1.1rem;
+    margin: 20px 0;
+  }
+  
+  .no-recipes i {
+    font-size: 2rem;
+    color: var(--light-orange);
+    margin-bottom: 15px;
+  }
 
 
 /* aside category */
