@@ -8,7 +8,9 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if(user) {
+      console.log(user);
       setCurrentUser(user.email);
+      console.log(currentUser);
     }
   }, [])
   return (

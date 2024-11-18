@@ -72,10 +72,12 @@ export default function Home() {
                     <div className="hero-text">
                         <h2 className="hero-title">Cooking Made Fun and Easy: Unleash Your Inner Chef</h2>
                         <p className="hero-description">Discover recipes in your hand with the best recipe. Help you to find the easiest way to cook.</p>
-                        <Link to="/recipes" className="hero-btn">
-                            Explore Recipes
-                            <i className="fas fa-arrow-right"></i>
-                        </Link>
+                        <div className="btn-wrapper">
+                            <Link to="/recipes" className="hero-btn">
+                                Explore Recipes
+                                <i className="fas fa-arrow-right"></i>
+                            </Link>
+                        </div>
                     </div>
                     <div className="hero-image">
                         <img src={mainPic} alt="main" />
