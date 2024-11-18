@@ -89,6 +89,7 @@ export default function RecipeList() {
   return (
     <div className="container-fluid">
       <div className="row">
+              <h1 className="title">Recipes</h1>
         <aside className="col-md-3 d-none d-md-block">
           <div className="categories-sidebar">
             {/* <h2 className="categories-title">Categories</h2> */}
@@ -109,29 +110,33 @@ export default function RecipeList() {
         </aside>
 
         <main className="col-md-9">
-          <div className="d-flex justify-content align-items-center mb-4">
-            <h1 className="title mx-auto">Recipes</h1>
-          </div>
-          <div className="d-flex align-items-center">
+        <div className="search-section">
+          <div className="search-container">
             <input
               type="text"
-              className="form-control me-2"
-              placeholder="Search..."
-              style={{ width: "100%" }}
+              className="search-input"
+              placeholder="Search recipes..."
               value={searchWord}
               onChange={handleSearch}
             />
             <button
               type="button"
-              className="btn btn-primary my-3"
+              className="add-recipe-btn"
               onClick={handleClick}
-              style={{ width: "30%", height: 'auto' }}
             >
-              ADD
+              <i className="fas fa-plus"></i>
+              Add Recipe
             </button>
           </div>
-          <AllRecipes category={category} PropsRecipes={recipes} searchWord={searchWord} handleLiked={handleLiked} />
-        </main>
+        </div>
+
+        <AllRecipes 
+          category={category} 
+          PropsRecipes={recipes} 
+          searchWord={searchWord} 
+          handleLiked={handleLiked} 
+        />
+      </main>
       </div>
     </div>
   );
