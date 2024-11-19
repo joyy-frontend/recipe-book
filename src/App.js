@@ -113,8 +113,9 @@ export default function App() {
             }
           />
           <Route path="recipes" element={<RecipeList />} />
-          <Route path="/recipes/:id" element={<RecipeDetail />} />
+          <Route path="recipes/:id" element={<RecipeDetail />} />
           <Route path="recipes/new" element={<RecipePost />} />
+          <Route path="recipes/edit/:recipeId" element={<RecipePost />} />
         </Route>
       </Routes>
     </BrowserRouter>
