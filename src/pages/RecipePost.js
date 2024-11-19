@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "../Custom.css";
 
 export default function RecipePost() {
+    const location = useLocation();
     const categories = [
         "breakfast", "lunch", "dinner", "appetizer",
         "salad", "dessert", "vegetarian", "soup", "seafood"
@@ -80,9 +82,14 @@ export default function RecipePost() {
         });
     };
 
-    const onClickEdit = () => {
-        setIsEditStatus(true);
-    }
+    useEffect(() => {
+        const isEditPage = /^\/recipes\/edit\/\d+$/.test(location.pathname);
+        if(isEditPage) {
+            setIsEditStatus(true);
+        } else {
+            setIsEditStatus(false);
+        }
+    }, [])
 
 
     useEffect(() => {
@@ -104,7 +111,6 @@ export default function RecipePost() {
                 setRecipeUser(recipe.user);
             } else {
                 setIsAddStatus(true);
-                setIsEditStatus(true);
             }
         } else {
             console.log('No recipes found in localStorage or invalid data structure');
@@ -127,13 +133,8 @@ export default function RecipePost() {
         <div className="container mt-5">
             <h1 className="text-center mb-4">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
             <div className="col-12 edit-mode">
-            {
-                recipeUser === currentUser.email && !isEditStatus &&
-                <button className="btn btn-primary" onClick={onClickEdit}>Change Edit Mode</button>
-            }
             </div>
             <form className="form-container" onSubmit={handleSubmit}>
-                <div>{isEditStatus}</div>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input 
@@ -143,7 +144,6 @@ export default function RecipePost() {
                         onChange={(e) => setRecipe({...recipe, title: e.target.value })} 
                         value={recipe.title}
                         required 
-                        readOnly={!isEditStatus} 
                     />
                 </div>
                 <div className="mb-3">
@@ -166,7 +166,6 @@ export default function RecipePost() {
                         onChange={(e) => setRecipe({...recipe, content: e.target.value })} 
                         value={recipe.content}  
                         required
-                        readOnly={!isEditStatus} 
                     ></textarea>
                 </div>
                 <div className="mb-3">
@@ -179,7 +178,6 @@ export default function RecipePost() {
                                 type="button"
                                 className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'btn-primary' : 'btn-outline-primary'}`}
                                 onClick={() => handleCategoryClick(category)}
-                                disabled={!isEditStatus} 
                             >
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
                             </button>
@@ -193,10 +191,7 @@ export default function RecipePost() {
              
                     <div className="mb-3">
                         <label htmlFor="img" className="form-label">Image</label>
-                    {
-                        isEditStatus &&
-                        <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} disabled={!isEditStatus} />
-                    }
+                           <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
                     </div>
              
                 {recipe.image && (
@@ -205,13 +200,16 @@ export default function RecipePost() {
                     </div>
                 )}
                 {
-                    isEditStatus && !isAddStatus &&
-                    <button type="submit" className="btn btn-primary">Update Recipe</button>
+                    isEditStatus ? (
+                        <button type="submit" className="btn btn-primary">Update Recipe</button>
+                    ) : (
+                        <button type="submit" className="btn btn-primary">Create Recipe</button>
+                    )
                 }
-                {
+                {/* {
                     isAddStatus &&
                     <button type="submit" className="btn btn-primary">Create Recipe</button>
-                }
+                } */}
             </form>
         </div>
     );
