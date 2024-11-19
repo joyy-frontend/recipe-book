@@ -42,9 +42,9 @@ export default function RecipeList() {
     navigate("/recipes/new");
   };
 
-  const handleCategory = (selectedCategory) => {
-    setCategory(selectedCategory);
-  };
+  // const handleCategory = (selectedCategory) => {
+  //   setCategory(selectedCategory);
+  // };
 
   const handleSearch = (e) => {
     const word = e.target.value;

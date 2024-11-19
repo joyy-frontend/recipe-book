@@ -47,7 +47,7 @@ export default function Home() {
         {
             name: "Vegetarian", 
             image: veganPic,
-            path: "/recipes?category=vegan"
+            path: "/recipes?category=vegetarian"
         },
         {
             name: "Seafood", 
