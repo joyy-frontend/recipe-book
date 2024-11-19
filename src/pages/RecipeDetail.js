@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function RecipeDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [recipe, setRecipe] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState('');
+  const [uploadedUser, setUploadUser] = useState('');
 
+  const onClickEdit = (recipeId) => {
+    navigate(`/recipes/edit/${recipeId}`);
+  }
   useEffect(() => {
     const storedRecipes = JSON.parse(localStorage.getItem("recipe")) || [];
-    console.log("Stored Recipes:", storedRecipes);
 
     const foundRecipe = storedRecipes.find((item) => item.id === parseInt(id));
-    console.log("ID from URL Params:", id);
 
     if (foundRecipe) {
       setRecipe(foundRecipe);
@@ -18,6 +22,19 @@ export default function RecipeDetail() {
       alert("Recipe not found!");
     }
   }, [id]);
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+    const clickedRecipe = JSON.parse(localStorage.getItem("recipe"));
+    const currentRecipe = clickedRecipe[id-1];
+
+    if(currentUser) {
+      setLoggedInUser(currentUser.email);
+    }
+    if(clickedRecipe) {
+      setUploadUser(currentRecipe.user)
+    }
+  }, []);
 
   if (!recipe) {
     return <div className="container mt-5">Loading recipe details...</div>;
@@ -39,8 +56,11 @@ export default function RecipeDetail() {
           <h1 className="fw-bold">{recipe.title}</h1>
           <p className="text-muted">Recipe by: {recipe.user}</p>
           <p className="text-muted">Date: {recipe.date}</p>
+          {
+            loggedInUser === uploadedUser &&
+            <button type="submit" className="btn btn-primary" onClick={() => onClickEdit(id)}>Edit</button>
+          }
         </div>
-  
         <div className="row text-center mb-4">
           <div className="col-md-6">
             <h6 className="fw-bold">Category</h6>
