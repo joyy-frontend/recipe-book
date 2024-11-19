@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import defaultImage from "../assets/images/default.png";
 import "../Custom.css";
 
 export default function RecipePost() {
@@ -20,7 +21,7 @@ export default function RecipePost() {
         user: '', 
         content: '', 
         category: '', 
-        image: '',
+        image: defaultImage,
         likes: 0, 
         date: ''
     });

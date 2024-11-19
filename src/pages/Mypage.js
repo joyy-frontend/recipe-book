@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Formcomponent from "../components/Formcomponent";
 import defaultProfile from "../assets/images/default-profile.png";
+import defaultImage from "../assets/images/default.png";
 import "../Custom.css";
-import logoImage from "../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 
 export default function Mypage({ user, userChange, updateUser }) {
@@ -200,7 +200,7 @@ export default function Mypage({ user, userChange, updateUser }) {
               uploadedRecipes.map((recipe) => (
                 <div key={recipe.id} className="recipe-card">
                   <img
-                    src={recipe.image ? recipe.image : logoImage}
+                    src={recipe.image ? recipe.image : defaultImage}
                     alt={recipe.title}
                     className="recipe-image"
                   />
@@ -230,7 +230,7 @@ export default function Mypage({ user, userChange, updateUser }) {
                 onClick={() => navigate(`/recipes/${recipe.id}`)}
               >
                   <img
-                    src={recipe.image ? recipe.image : logoImage}
+                    src={recipe.image ? recipe.image : defaultImage}
                     alt={recipe.title}
                     className="recipe-image"
                   />
