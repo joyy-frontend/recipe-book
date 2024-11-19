@@ -478,6 +478,7 @@ body,
     height: 100%;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
   }
   
   .recipe-card:hover {
