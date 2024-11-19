@@ -74,7 +74,7 @@ export default function RecipeDetail() {
         
         <div className="recipe-content">
           <h3 className="fw-bold mb-3 text-center">How to make?</h3>
-          <p>{recipe.content}</p>
+          <p style={{ whiteSpace: 'pre-wrap'}}>{recipe.content}</p>
         </div>
       </div>
     </div>
