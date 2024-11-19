@@ -80,6 +80,11 @@ body,
     color: var(--light-orange) !important;
 }
 
+.nav-link.active {
+  color: var(--deep-orange); /* 활성화된 링크 색상 */
+  font-weight: bold; /* 활성화된 링크 강조 */
+}
+
 .nav-link p {
     margin-bottom: 1.3rem;
 }
