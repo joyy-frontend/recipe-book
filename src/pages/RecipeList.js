@@ -1,12 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import AllRecipes from "../components/AllRecipes";
 import { useEffect, useState } from "react";
 
 export default function RecipeList() {
-  const [recipes, setRecipes] = useState([]);
-  const [category, setCategory] = useState("All");
-  const [searchWord, setSearchWord] = useState("");
+  const location = useLocation();
   const navigate = useNavigate();
+  const [recipes, setRecipes] = useState([]);
+  const [searchWord, setSearchWord] = useState("");
+  
+  const queryParams = new URLSearchParams(location.search);
+  const initialCategory = queryParams.get('category');
+  const [category, setCategory] = useState(initialCategory?.charAt(0).toUpperCase() + initialCategory?.slice(1) || "All");
+
+  const setCategoryHandler = (selectedCategory) => {
+    setCategory(selectedCategory);
+    navigate(`/recipes?category=${selectedCategory.toLowerCase()}`);
+};
 
   useEffect(() => {
     const localStoragedData = JSON.parse(localStorage.getItem("recipe"));
@@ -83,7 +92,7 @@ export default function RecipeList() {
                 <button
                   key={cate}
                   className={`category-btn ${category === cate ? "active" : ""}`}
-                  onClick={() => handleCategory(cate)}
+                  onClick={() => setCategoryHandler(cate)}
                 >
                   {/* 아이콘 추가 */}
                   <i className={`fas ${getCategoryIcon(cate)} me-2`}></i>
