@@ -15,7 +15,7 @@ export default function Navbar({ isLoggedIn, onLogout }) {
     }
   }, [])
     return (
-      <nav className="navbar navbar-expand-sm navbar-light">
+      <nav className="navbar navbar-expand-md navbar-light">
         <div className="container">
           <div className="navbar-header">
             <NavLink className="navbar-brand" to="/">

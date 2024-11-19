@@ -121,8 +121,8 @@ const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
                       className="recipe-btn delete-btn"
                       onClick={() => onClickDel(recipe.id)}
                     >
-                      <i className="fas fa-trash-alt me-2"></i>
-                      Delete
+                      <i className="fas fa-trash-alt"></i>
+                      <span> Delete</span> 
                     </button>
                   )}
                   <button
@@ -131,8 +131,10 @@ const AllRecipes = ({ category, PropsRecipes, searchWord }) => {
                     }`}
                     onClick={() => handleLiked(recipe.id)}
                   >
-                    <i className="fas fa-heart me-2"></i>
-                    {recipe.likedBy?.includes(currentUser) ? "Liked" : "Like"}
+                    <i className="fas fa-heart"></i>
+                    <span>
+                      {recipe.likedBy?.includes(currentUser) ? " Liked" : " Like"}
+                    </span> 
                   </button>
                 </div>
               </div>
