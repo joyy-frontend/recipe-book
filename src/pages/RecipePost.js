@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "../Custom.css";
+import defaultImage from "../assets/images/default.png";
 import { useLocation } from "react-router-dom";
-import defaultImage from "../assets/images/default.png"
+import "../Custom.css";
 
 export default function RecipePost() {
     const location = useLocation();
@@ -24,7 +24,7 @@ export default function RecipePost() {
         content: '', 
         category: '', 
         ingredients: [], // Initialize as an empty array
-        image: '',
+        image: defaultImage,
         likes: 0, 
         date: ''
     });
@@ -153,15 +153,15 @@ export default function RecipePost() {
 
     return (
         <div className="container mt-5">
-            <h1 className="text-center mb-4">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
+            <h1 className="text-center mb-4 title">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
             <div className="col-12 edit-mode">
             </div>
             <form className="form-container" onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="title" className="form-label">Title</label>
+                    <label htmlFor="title" className="addform-label">Title</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className="addform-input" 
                         id="title"
                         onChange={(e) => setRecipe({...recipe, title: e.target.value })} 
                         value={recipe.title}
@@ -169,16 +169,17 @@ export default function RecipePost() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="user" className="form-label">User</label>
+                    <label htmlFor="user" className="addform-label">User</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className="addform-input" 
                         id="user" 
                         onChange={(e) => setRecipe({...recipe, user: e.target.value })} 
                         value={recipe.user} 
                         readOnly
                     />
                 </div>
+                {/* ingredients */}
                 <div className="mb-3">
                     <label htmlFor="ingredients" className="addform-label">Ingredients</label>
                     <div className="input-group">
@@ -207,11 +208,11 @@ export default function RecipePost() {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </div> 
                 <div className="mb-3">
-                    <label htmlFor="content" className="form-label">Content</label>
+                    <label htmlFor="content" className="addform-label">How to make</label>
                     <textarea 
-                        className="form-control" 
+                        className="addform-input" 
                         id="content" 
                         rows="3" 
                         onChange={(e) => setRecipe({...recipe, content: e.target.value })} 

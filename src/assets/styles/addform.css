@@ -70,6 +70,7 @@
 }
 
 .addform-category-btn {
+  font-family: var(--main-font);
   background-color: var(--deep-orange);
   color: white;
 }
@@ -81,6 +82,7 @@
   }
 
 .addform-category-outline-btn {
+  font-family: var(--main-font);
   background-color: white;
   color: var(--deep-orange);
   border: 2px solid var(--deep-orange);

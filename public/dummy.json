@@ -1,96 +1,27 @@
-[
-    {
-        "id": 1,
+{
+    "recipes": [
+      {
+        "id": 100,
         "title": "Spaghetti Carbonara",
-        "author": "JohnDoe",
-        "category": "Dinner",
-        "image": null,
-        "ingredients": [
-            "Spaghetti",
-            "Egg yolks",
-            "Parmesan cheese",
-            "Pancetta",
-            "Black pepper"
-        ],
-        "instructions": [
-            "Cook the spaghetti according to package instructions.",
-            "In a bowl, whisk together egg yolks and Parmesan cheese.",
-            "In a pan, cook pancetta until crispy.",
-            "Combine spaghetti, egg mixture, and pancetta. Mix well.",
-            "Serve with additional cheese and black pepper."
-        ],
-        "likes": 25,
-        "comments": [
-            {
-                "user": "JaneSmith",
-                "comment": "Delicious! My family loved it."
-            },
-            {
-                "user": "MikeLee",
-                "comment": "Easy to make and so tasty!"
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "title": "Avocado Toast",
-        "author": "SarahB",
-        "category": "Breakfast",
-        "image": "pizza.png",
-        "ingredients": [
-            "Bread",
-            "Avocado",
-            "Salt",
-            "Pepper",
-            "Lemon juice"
-        ],
-        "instructions": [
-            "Toast the bread until golden.",
-            "Mash the avocado with salt, pepper, and lemon juice.",
-            "Spread avocado mixture on the toast."
-        ],
-        "likes": 18,
-        "comments": [
-            {
-                "user": "TomBrown",
-                "comment": "Perfect for a quick breakfast."
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "title": "Chocolate Chip Cookies",
-        "author": "BakerJoe",
-        "category": "Dessert",
-        "image": "pizza.png",
-        "ingredients": [
-            "Butter",
-            "Sugar",
-            "Brown sugar",
-            "Vanilla extract",
-            "Eggs",
-            "Flour",
-            "Baking soda",
-            "Salt",
-            "Chocolate chips"
-        ],
-        "instructions": [
-            "Preheat oven to 350°F (175°C).",
-            "Cream together butter and sugars until smooth.",
-            "Add eggs and vanilla, then mix in dry ingredients.",
-            "Fold in chocolate chips.",
-            "Scoop dough onto baking sheet and bake for 10-12 minutes."
-        ],
-        "likes": 45,
-        "comments": [
-            {
-                "user": "CookieLover",
-                "comment": "Best cookies ever!"
-            },
-            {
-                "user": "SweetTooth",
-                "comment": "I made a double batch and it was a hit!"
-            }
-        ]
-    }
-]
+        "user": "admin@example.com",
+        "content": "Boil pasta, cook bacon, mix eggs and cheese...",
+        "category": "dinner",
+        "ingredients": ["pasta", "bacon", "eggs", "cheese"],
+        "image": "/dummyPhotos/spaghetti.png",
+        "likes": 10,
+        "date": "2024-01-01"
+      },
+      {
+        "id": 200,
+        "title": "Caesar Salad",
+        "user": "admin@example.com",
+        "content": "Chop lettuce, add dressing, mix croutons...",
+        "category": "salad",
+        "ingredients": ["lettuce", "croutons", "parmesan", "dressing"],
+        "image": "/dummyPhotos/caesarsalad.png",
+        "likes": 5,
+        "date": "2024-01-02"
+      }
+    ]
+  }
+  
