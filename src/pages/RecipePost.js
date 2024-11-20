@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import defaultImage from "../assets/images/default.png";
 import { useLocation } from "react-router-dom";
-import defaultImage from "../assets/images/default.png";
 import "../Custom.css";
 
 export default function RecipePost() {
@@ -160,7 +159,8 @@ export default function RecipePost() {
                         readOnly
                     />
                 </div>
-                <div className="mb-3">
+                {/* ingredients */}
+                {/* <div className="mb-3">
                     <label htmlFor="ingredients" className="addform-label">Ingredients</label>
                     <div className="input-group">
                         <input 
@@ -188,7 +188,7 @@ export default function RecipePost() {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </div> */}
                 <div className="mb-3">
                     <label htmlFor="content" className="addform-label">Content</label>
                     <textarea 
