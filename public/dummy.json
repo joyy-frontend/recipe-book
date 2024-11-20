@@ -8,7 +8,7 @@
         "category": "dinner",
         "ingredients": ["pasta", "bacon", "eggs", "cheese"],
         "image": "/dummyPhotos/spaghetti.png",
-        "likes": 10,
+        "likes": 0,
         "date": "2024-01-01"
       },
       {
@@ -19,7 +19,7 @@
         "category": "salad",
         "ingredients": ["lettuce", "croutons", "parmesan", "dressing"],
         "image": "/dummyPhotos/caesarsalad.png",
-        "likes": 5,
+        "likes": 0,
         "date": "2024-01-02"
       }
     ]

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../http-common"; // http-common 파일 설정 사용
 import logoImage from "../assets/images/logo.png";
@@ -16,7 +16,7 @@ const AllRecipes = ({ category, searchWord }) => {
   }, []);
 
   // axios로 dummy.json 데이터 가져오기
-  useEffect(() => {
+  useState(() => {
     const fetchDummyData = async () => {
       try {
         const storedRecipes = JSON.parse(localStorage.getItem("recipe")) || [];
@@ -150,14 +150,7 @@ const AllRecipes = ({ category, searchWord }) => {
                 </div>
               </Link>
               <div className="recipe-buttons">
-                {recipe.isDummy ? (
-                  // DummyData용 Like 버튼 (동작하지 않음)
-                  <button className="recipe-btn like-btn">
-                    <i className="fas fa-heart"></i>
-                    <span> Like</span>
-                  </button>
-                ) : (
-                  // LocalStorage용 Like 버튼 (동작 가능)
+                {/* // LocalStorage용 Like 버튼 (동작 가능) */}
                   <button
                     className={`recipe-btn like-btn ${
                       recipe.likedBy?.includes(currentUser) ? "active" : ""
@@ -169,8 +162,7 @@ const AllRecipes = ({ category, searchWord }) => {
                       {recipe.likedBy?.includes(currentUser) ? " Liked" : " Like"}
                     </span>
                   </button>
-                )}
-                {!recipe.isDummy && recipe.user === currentUser && (
+                {recipe.user === currentUser && (
                   <button
                     type="button"
                     className="recipe-btn delete-btn"
