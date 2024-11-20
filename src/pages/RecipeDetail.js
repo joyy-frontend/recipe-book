@@ -9,14 +9,15 @@ export default function RecipeDetail() {
   const [uploadedUser, setUploadUser] = useState("");
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [editingCommentIndex, setEditingCommentIndex] = useState(null);
+  const [editedComment, setEditedComment] = useState("");
 
-  const onClickEdit = (recipeId) => {
+  const onClickEditRecipe = (recipeId) => {
     navigate(`/recipes/edit/${recipeId}`);
   };
 
   useEffect(() => {
     const storedRecipes = JSON.parse(localStorage.getItem("recipe")) || [];
-
     const foundRecipe = storedRecipes.find((item) => item.id === parseInt(id));
 
     if (foundRecipe) {
@@ -65,6 +66,49 @@ export default function RecipeDetail() {
     localStorage.setItem("recipe", JSON.stringify(updatedRecipes));
   };
 
+  const handleEditComment = (index) => {
+    setEditingCommentIndex(index);
+    setEditedComment(comments[index].text);
+  };
+
+  const handleSaveEditedComment = () => {
+    const updatedComments = comments.map((comment, index) => {
+      if (index === editingCommentIndex) {
+        return { ...comment, text: editedComment };
+      }
+      return comment;
+    });
+
+    setComments(updatedComments);
+    setEditingCommentIndex(null);
+    setEditedComment("");
+
+    // Update comments in localStorage
+    const storedRecipes = JSON.parse(localStorage.getItem("recipe")) || [];
+    const updatedRecipes = storedRecipes.map((item) => {
+      if (item.id === parseInt(id)) {
+        return { ...item, comments: updatedComments };
+      }
+      return item;
+    });
+    localStorage.setItem("recipe", JSON.stringify(updatedRecipes));
+  };
+
+  const handleDeleteComment = (index) => {
+    const updatedComments = comments.filter((_, i) => i !== index);
+    setComments(updatedComments);
+
+    // Update comments in localStorage
+    const storedRecipes = JSON.parse(localStorage.getItem("recipe")) || [];
+    const updatedRecipes = storedRecipes.map((item) => {
+      if (item.id === parseInt(id)) {
+        return { ...item, comments: updatedComments };
+      }
+      return item;
+    });
+    localStorage.setItem("recipe", JSON.stringify(updatedRecipes));
+  };
+
   if (!recipe) {
     return <div className="container mt-5">Loading recipe details...</div>;
   }
@@ -89,12 +133,13 @@ export default function RecipeDetail() {
             <button
               type="submit"
               className="btn btn-primary"
-              onClick={() => onClickEdit(id)}
+              onClick={() => onClickEditRecipe(id)}
             >
               Edit
             </button>
           )}
         </div>
+
         <div className="row text-center mb-4">
           <div className="col-md-6">
             <h6 className="fw-bold">Category</h6>
@@ -138,7 +183,45 @@ export default function RecipeDetail() {
                   <p>
                     <strong>{comment.user}</strong> <span className="text-muted">({comment.date})</span>
                   </p>
-                  <p>{comment.text}</p>
+                  {editingCommentIndex === index ? (
+                    <div>
+                      <textarea
+                        className="form-control mb-2"
+                        value={editedComment}
+                        onChange={(e) => setEditedComment(e.target.value)}
+                      ></textarea>
+                      <button
+                        className="btn btn-success me-2"
+                        onClick={handleSaveEditedComment}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => setEditingCommentIndex(null)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <p>{comment.text}</p>
+                  )}
+                  {comment.user === loggedInUser && editingCommentIndex !== index && (
+                    <div>
+                      <button
+                        className="btn btn-sm btn-warning me-2"
+                        onClick={() => handleEditComment(index)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => handleDeleteComment(index)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))
             ) : (
