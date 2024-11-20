@@ -132,15 +132,15 @@ export default function RecipePost() {
 
     return (
         <div className="container mt-5">
-            <h1 className="text-center mb-4">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
+            <h1 className="text-center mb-4 title">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
             <div className="col-12 edit-mode">
             </div>
             <form className="form-container" onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="title" className="form-label">Title</label>
+                    <label htmlFor="title" className="addform-label">Title</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className="addform-input" 
                         id="title"
                         onChange={(e) => setRecipe({...recipe, title: e.target.value })} 
                         value={recipe.title}
@@ -148,10 +148,10 @@ export default function RecipePost() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="user" className="form-label">User</label>
+                    <label htmlFor="user" className="addform-label">User</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className="addform-input" 
                         id="user" 
                         onChange={(e) => setRecipe({...recipe, user: e.target.value })} 
                         value={recipe.user} 
@@ -159,9 +159,9 @@ export default function RecipePost() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="content" className="form-label">Content</label>
+                    <label htmlFor="content" className="addform-label">Content</label>
                     <textarea 
-                        className="form-control" 
+                        className="addform-input" 
                         id="content" 
                         rows="3" 
                         onChange={(e) => setRecipe({...recipe, content: e.target.value })} 
@@ -170,14 +170,14 @@ export default function RecipePost() {
                     ></textarea>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="category" className="form-label">Category</label>
+                    <label htmlFor="category" className="addform-label">Category</label>
                     <br />
                     <div className="btn-group-category" role="group" aria-label="Category Selector">
                         {categories.map((category) => (
                             <button
                                 key={category}
                                 type="button"
-                                className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'btn-primary' : 'btn-outline-primary'}`}
+                                className={`${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'addform-category-btn' : 'addform-category-outline-btn'}`}
                                 onClick={() => handleCategoryClick(category)}
                             >
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -186,13 +186,13 @@ export default function RecipePost() {
                     </div>  
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Date</label>
-                    <input type="date" className="form-control" id="date" value={date} readOnly />
+                    <label htmlFor="date" className="addform-label">Date</label>
+                    <input type="date" className="addform-input" id="date" value={date} readOnly />
                 </div>
              
                     <div className="mb-3">
-                        <label htmlFor="img" className="form-label">Image</label>
-                           <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
+                        <label htmlFor="img" className="addform-label">Image</label>
+                           <input type="file" className="addform-input" id="img" accept="image/*" onChange={handleImageChange} />
                     </div>
              
                 {recipe.image && (
@@ -202,9 +202,9 @@ export default function RecipePost() {
                 )}
                 {
                     isEditStatus ? (
-                        <button type="submit" className="btn btn-primary">Update Recipe</button>
+                        <button type="submit" className="addform-btn">Update Recipe</button>
                     ) : (
-                        <button type="submit" className="btn btn-primary">Create Recipe</button>
+                        <button type="submit" className="addform-btn">Create Recipe</button>
                     )
                 }
                 {/* {
