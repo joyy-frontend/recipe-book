@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "../Custom.css";
+import defaultImage from "../assets/images/default.png";
 import { useLocation } from "react-router-dom";
+import "../Custom.css";
 
 export default function RecipePost() {
     const location = useLocation();
@@ -22,14 +23,11 @@ export default function RecipePost() {
         user: '', 
         content: '', 
         category: '', 
-        ingredients: [], // Initialize as an empty array
-        image: '',
+        image: defaultImage,
         likes: 0, 
         date: ''
     });
     
-    const [ingredientInput, setIngredientInput] = useState(''); // Input for adding ingredients
-
     const handleSubmit = (e) => {
         e.preventDefault();
         let storageData = JSON.parse(localStorage.getItem("recipe")) || [];
@@ -85,37 +83,15 @@ export default function RecipePost() {
         });
     };
 
-    const onClickEdit = () => {
-        setIsEditStatus(true);
-    }
-
-    const handleAddIngredient = () => {
-        if (!ingredientInput.trim()) {
-            alert("Ingredient cannot be empty");
-            return;
-        }
-        setRecipe((prev) => ({
-            ...prev,
-            ingredients: [...(prev.ingredients || []), ingredientInput]
-        }));
-        setIngredientInput(''); // Clear input after adding
-    };
-
-    const handleRemoveIngredient = (ingredientToRemove) => {
-        setRecipe((prev) => ({
-            ...prev,
-            ingredients: prev.ingredients.filter((ingredient) => ingredient !== ingredientToRemove)
-        }));
-    };
-
     useEffect(() => {
         const isEditPage = /^\/recipes\/edit\/\d+$/.test(location.pathname);
-        if (isEditPage) {
+        if(isEditPage) {
             setIsEditStatus(true);
         } else {
             setIsEditStatus(false);
         }
-    }, []);
+    }, [])
+
 
     useEffect(() => {
         if (recipeId) {
@@ -136,7 +112,6 @@ export default function RecipePost() {
                 setRecipeUser(recipe.user);
             } else {
                 setIsAddStatus(true);
-                setIsEditStatus(true);
             }
         } else {
             console.log('No recipes found in localStorage or invalid data structure');
@@ -151,23 +126,18 @@ export default function RecipePost() {
         }
         
         const today = new Date().toISOString().split("T")[0];
-    setDate(today); 
-    setRecipe((prev) => ({ ...prev, date: today })); 
+    setDate(today); // date 상태 업데이트
+    setRecipe((prev) => ({ ...prev, date: today })); // recipe 객체에 날짜 추가
 }, [recipeId]);
 
     return (
         <div className="container mt-5">
-            <h1 className="text-center mb-3 title">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
+            <h1 className="text-center mb-4 title">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
             <div className="col-12 edit-mode">
-            {
-                recipeUser === currentUser.email && !isEditStatus &&
-                <button className="btn btn-primary" onClick={onClickEdit}>Change Edit Mode</button>
-            }
             </div>
             <form className="form-container" onSubmit={handleSubmit}>
-                <div>{isEditStatus}</div>
                 <div className="mb-3">
-                    <label htmlFor="title" className="addform-label mb-2">Title</label>
+                    <label htmlFor="title" className="addform-label">Title</label>
                     <input 
                         type="text" 
                         className="addform-input" 
@@ -175,7 +145,6 @@ export default function RecipePost() {
                         onChange={(e) => setRecipe({...recipe, title: e.target.value })} 
                         value={recipe.title}
                         required 
-                        readOnly={!isEditStatus} 
                     />
                 </div>
                 <div className="mb-3">
@@ -190,36 +159,7 @@ export default function RecipePost() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
-                    <div className="input-group mb-3">
-                        <input 
-                            type="text" 
-                            className="form-control" 
-                            placeholder="Add an ingredient"
-                            value={ingredientInput}
-                            onChange={(e) => setIngredientInput(e.target.value)}
-                        />
-                        <button type="button" className="btn btn-success" onClick={handleAddIngredient}>
-                            Add
-                        </button>
-                    </div>
-                    <ul className="list-group">
-                        {Array.isArray(recipe.ingredients) && recipe.ingredients.map((ingredient, index) => (
-                            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                                {ingredient}
-                                <button
-                                    type="button"
-                                    className="btn btn-sm btn-danger"
-                                    onClick={() => handleRemoveIngredient(ingredient)}
-                                >
-                                    Remove
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="mb-3">
-                <label htmlFor="content" className="addform-label">Content</label>
+                    <label htmlFor="content" className="addform-label">Content</label>
                     <textarea 
                         className="addform-input" 
                         id="content" 
@@ -227,7 +167,6 @@ export default function RecipePost() {
                         onChange={(e) => setRecipe({...recipe, content: e.target.value })} 
                         value={recipe.content}  
                         required
-                        readOnly={!isEditStatus} 
                     ></textarea>
                 </div>
                 <div className="mb-3">
@@ -238,9 +177,8 @@ export default function RecipePost() {
                             <button
                                 key={category}
                                 type="button"
-                                className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'addform-category-btn' : 'addform-category-outline-btn'}`}
+                                className={`${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'addform-category-btn' : 'addform-category-outline-btn'}`}
                                 onClick={() => handleCategoryClick(category)}
-                                disabled={!isEditStatus} 
                             >
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
                             </button>
@@ -254,10 +192,7 @@ export default function RecipePost() {
              
                     <div className="mb-3">
                         <label htmlFor="img" className="addform-label">Image</label>
-                    {
-                        isEditStatus &&
-                        <input type="file" className="addform-input" id="img" accept="image/*" onChange={handleImageChange} disabled={!isEditStatus} />
-                    }
+                           <input type="file" className="addform-input" id="img" accept="image/*" onChange={handleImageChange} />
                     </div>
              
                 {recipe.image && (
@@ -266,13 +201,16 @@ export default function RecipePost() {
                     </div>
                 )}
                 {
-                    isEditStatus && !isAddStatus &&
-                    <button type="submit" className="addform-btn">Update Recipe</button>
+                    isEditStatus ? (
+                        <button type="submit" className="addform-btn">Update Recipe</button>
+                    ) : (
+                        <button type="submit" className="addform-btn">Create Recipe</button>
+                    )
                 }
-                {
+                {/* {
                     isAddStatus &&
-                    <button type="submit" className="addform-btn">Create Recipe</button>
-                }
+                    <button type="submit" className="btn btn-primary">Create Recipe</button>
+                } */}
             </form>
         </div>
     );
