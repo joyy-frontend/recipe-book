@@ -317,6 +317,10 @@ body,
 
 
 /* mypage */
+.recipe-card {
+  text-decoration: none;
+}
+
 .profile-section {
     padding: 20px;
     background-color: #f9f3f0;
