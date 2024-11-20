@@ -369,7 +369,7 @@ body,
 }
 
 /* recipe detail */
-.recipe-content-in p, .recipe-meta p {
+.info-p, .recipe-content-in p, .recipe-meta p {
   font-family: var(--main-font);
 }
 

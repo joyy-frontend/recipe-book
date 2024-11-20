@@ -167,7 +167,7 @@ export default function RecipeDetail() {
               ))}
             </ul>
           ) : (
-            <p className="text-center">No ingredients provided for this recipe.</p>
+            <p className="info-p text-center">No ingredients provided for this recipe.</p>
           )}
         </div>
 
@@ -229,7 +229,7 @@ export default function RecipeDetail() {
                 </div>
               ))
             ) : (
-              <p className="text-center">No comments yet. Be the first to comment!</p>
+              <p className="info-p text-center">No comments yet. Be the first to comment!</p>
             )}
           </div>
           <div className="comment-form mt-4">
