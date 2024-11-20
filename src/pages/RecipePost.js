@@ -96,6 +96,16 @@ export default function RecipePost() {
         }
     }, [recipeId]);
 
+
+    useEffect(() => {
+        const isEditPage = /^\/recipes\/edit\/\d+$/.test(location.pathname);
+        if(isEditPage) {
+            setIsEditStatus(true);
+        } else {
+            setIsEditStatus(false);
+        }
+    }, [])
+
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         const recipeUser = JSON.parse(localStorage.getItem('recipe'));
@@ -120,18 +130,9 @@ export default function RecipePost() {
         }
         
         const today = new Date().toISOString().split("T")[0];
-        setDate(today); 
-        setRecipe((prev) => ({ ...prev, date: today })); 
-    }, [recipeId]);
-
-    useEffect(() => {
-        const isEditPage = /^\/recipes\/edit\/\d+$/.test(location.pathname);
-        if(isEditPage) {
-            setIsEditStatus(true);
-        } else {
-            setIsEditStatus(false);
-        }
-    }, [])
+    setDate(today); 
+    setRecipe((prev) => ({ ...prev, date: today })); 
+}, [recipeId]);
 
     return (
         <div className="container mt-5">
