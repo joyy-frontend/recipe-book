@@ -24,12 +24,30 @@ export default function RecipePost() {
         content: '', 
         category: '', 
         ingredients: [], // Initialize as an empty array
-        image: defaultImage,
+        image: '',
         likes: 0, 
         date: ''
     });
-    
     const [ingredientInput, setIngredientInput] = useState(''); // Input for adding ingredients
+
+    const handleAddIngredient = () => {
+        if (!ingredientInput.trim()) {
+            alert("Ingredient cannot be empty");
+            return;
+        }
+        setRecipe((prev) => ({
+            ...prev,
+            ingredients: [...(prev.ingredients || []), ingredientInput]
+        }));
+        setIngredientInput(''); // Clear input after adding
+    };
+
+    const handleRemoveIngredient = (ingredientToRemove) => {
+        setRecipe((prev) => ({
+            ...prev,
+            ingredients: prev.ingredients.filter((ingredient) => ingredient !== ingredientToRemove)
+        }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -86,37 +104,15 @@ export default function RecipePost() {
         });
     };
 
-    const onClickEdit = () => {
-        setIsEditStatus(true);
-    }
-
-    const handleAddIngredient = () => {
-        if (!ingredientInput.trim()) {
-            alert("Ingredient cannot be empty");
-            return;
-        }
-        setRecipe((prev) => ({
-            ...prev,
-            ingredients: [...(prev.ingredients || []), ingredientInput]
-        }));
-        setIngredientInput(''); // Clear input after adding
-    };
-
-    const handleRemoveIngredient = (ingredientToRemove) => {
-        setRecipe((prev) => ({
-            ...prev,
-            ingredients: prev.ingredients.filter((ingredient) => ingredient !== ingredientToRemove)
-        }));
-    };
-
     useEffect(() => {
         const isEditPage = /^\/recipes\/edit\/\d+$/.test(location.pathname);
-        if (isEditPage) {
+        if(isEditPage) {
             setIsEditStatus(true);
         } else {
             setIsEditStatus(false);
         }
-    }, []);
+    }, [])
+
 
     useEffect(() => {
         if (recipeId) {
@@ -137,7 +133,6 @@ export default function RecipePost() {
                 setRecipeUser(recipe.user);
             } else {
                 setIsAddStatus(true);
-                setIsEditStatus(true);
             }
         } else {
             console.log('No recipes found in localStorage or invalid data structure');
@@ -152,38 +147,32 @@ export default function RecipePost() {
         }
         
         const today = new Date().toISOString().split("T")[0];
-    setDate(today); 
-    setRecipe((prev) => ({ ...prev, date: today })); 
+    setDate(today); // date 상태 업데이트
+    setRecipe((prev) => ({ ...prev, date: today })); // recipe 객체에 날짜 추가
 }, [recipeId]);
 
     return (
         <div className="container mt-5">
-            <h1 className="text-center mb-3 title">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
+            <h1 className="text-center mb-4">{recipeId ? 'Recipe Detail' : 'Recipe Post'}</h1>
             <div className="col-12 edit-mode">
-            {
-                recipeUser === currentUser.email && !isEditStatus &&
-                <button className="btn btn-primary" onClick={onClickEdit}>Change Edit Mode</button>
-            }
             </div>
             <form className="form-container" onSubmit={handleSubmit}>
-                <div>{isEditStatus}</div>
                 <div className="mb-3">
-                    <label htmlFor="title" className="addform-label mb-2">Title</label>
+                    <label htmlFor="title" className="form-label">Title</label>
                     <input 
                         type="text" 
-                        className="addform-input" 
+                        className="form-control" 
                         id="title"
                         onChange={(e) => setRecipe({...recipe, title: e.target.value })} 
                         value={recipe.title}
                         required 
-                        readOnly={!isEditStatus} 
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="user" className="addform-label">User</label>
+                    <label htmlFor="user" className="form-label">User</label>
                     <input 
                         type="text" 
-                        className="addform-input" 
+                        className="form-control" 
                         id="user" 
                         onChange={(e) => setRecipe({...recipe, user: e.target.value })} 
                         value={recipe.user} 
@@ -191,16 +180,16 @@ export default function RecipePost() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="ingredients" className="addform-label">Ingredients</label>
-                    <div className="input-group">
+                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
+                    <div className="input-group mb-3">
                         <input 
                             type="text" 
-                            className="addform-input" 
+                            className="form-control" 
                             placeholder="Add an ingredient"
                             value={ingredientInput}
                             onChange={(e) => setIngredientInput(e.target.value)}
                         />
-                        <button type="button" className="tst-btn btn-success" onClick={handleAddIngredient}>
+                        <button type="button" className="btn btn-success" onClick={handleAddIngredient}>
                             Add
                         </button>
                     </div>
@@ -220,28 +209,26 @@ export default function RecipePost() {
                     </ul>
                 </div>
                 <div className="mb-3">
-                <label htmlFor="content" className="addform-label">Content</label>
+                    <label htmlFor="content" className="form-label">Content</label>
                     <textarea 
-                        className="addform-input" 
+                        className="form-control" 
                         id="content" 
                         rows="3" 
                         onChange={(e) => setRecipe({...recipe, content: e.target.value })} 
                         value={recipe.content}  
                         required
-                        readOnly={!isEditStatus} 
                     ></textarea>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="category" className="addform-label">Category</label>
+                    <label htmlFor="category" className="form-label">Category</label>
                     <br />
                     <div className="btn-group-category" role="group" aria-label="Category Selector">
                         {categories.map((category) => (
                             <button
                                 key={category}
                                 type="button"
-                                className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'addform-category-btn' : 'addform-category-outline-btn'}`}
+                                className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'btn-primary' : 'btn-outline-primary'}`}
                                 onClick={() => handleCategoryClick(category)}
-                                disabled={!isEditStatus} 
                             >
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
                             </button>
@@ -249,16 +236,13 @@ export default function RecipePost() {
                     </div>  
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="date" className="addform-label">Date</label>
-                    <input type="date" className="addform-input" id="date" value={date} readOnly />
+                    <label htmlFor="date" className="form-label">Date</label>
+                    <input type="date" className="form-control" id="date" value={date} readOnly />
                 </div>
              
                     <div className="mb-3">
-                        <label htmlFor="img" className="addform-label">Image</label>
-                    {
-                        isEditStatus &&
-                        <input type="file" className="addform-input" id="img" accept="image/*" onChange={handleImageChange} disabled={!isEditStatus} />
-                    }
+                        <label htmlFor="img" className="form-label">Image</label>
+                           <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
                     </div>
              
                 {recipe.image && (
@@ -267,13 +251,16 @@ export default function RecipePost() {
                     </div>
                 )}
                 {
-                    isEditStatus && !isAddStatus &&
-                    <button type="submit" className="addform-btn">Update Recipe</button>
+                    isEditStatus ? (
+                        <button type="submit" className="btn btn-primary">Update Recipe</button>
+                    ) : (
+                        <button type="submit" className="btn btn-primary">Create Recipe</button>
+                    )
                 }
-                {
+                {/* {
                     isAddStatus &&
-                    <button type="submit" className="addform-btn">Create Recipe</button>
-                }
+                    <button type="submit" className="btn btn-primary">Create Recipe</button>
+                } */}
             </form>
         </div>
     );
