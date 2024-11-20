@@ -3,6 +3,7 @@ import AllRecipes from "../components/AllRecipes";
 import { useEffect, useState } from "react";
 
 export default function RecipeList() {
+
   const location = useLocation();
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
