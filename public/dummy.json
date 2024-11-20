@@ -1,27 +1,92 @@
 {
-    "recipes": [
-      {
-        "id": 1,
-        "title": "Spaghetti Carbonara",
-        "user": "t@mail.com",
-        "content": "Boil pasta, cook bacon, mix eggs and cheese...",
-        "category": "dinner",
-        "ingredients": ["pasta", "bacon", "eggs", "cheese"],
-        "image": "/dummyPhotos/spaghetti.png",
-        "likes": 0,
-        "date": "2024-01-01"
-      },
-      {
-        "id": 2,
-        "title": "Caesar Salad",
-        "user": "t@mail.com",
-        "content": "Chop lettuce, add dressing, mix croutons...",
-        "category": "salad",
-        "ingredients": ["lettuce", "croutons", "parmesan", "dressing"],
-        "image": "/dummyPhotos/caesarsalad.png",
-        "likes": 0,
-        "date": "2024-01-02"
-      }
-    ]
-  }
-  
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Tomato Spaghetti",
+      "user": "t@mail.com",
+      "content": "Boil pasta, cook bacon, mix eggs and cheese...",
+      "category": "dinner",
+      "ingredients": ["pasta 300g", "bacon 3 slices", "1 egg", "some cheese"],
+      "image": "/dummyPhotos/spaghetti.png",
+      "likes": 0,
+      "date": "2024-01-01"
+    },
+    {
+      "id": 2,
+      "title": "Caesar Salad",
+      "user": "t@mail.com",
+      "content": "Chop lettuce, add dressing, mix croutons...",
+      "category": "salad",
+      "ingredients": ["lettuce 300g", "croutons", "parmesan cheese", "caesar dressing"],
+      "image": "/dummyPhotos/caesarsalad.png",
+      "likes": 0,
+      "date": "2024-01-02"
+    },
+    {
+      "id": 3,
+      "title": "Pancakes",
+      "user": "2@mail.com",
+      "content": "1. In a bowl, mix flour, sugar, baking powder, and salt.\n2. In another bowl, whisk together milk, eggs, and melted butter.\n3. Combine the wet and dry ingredients until smooth.\n4. Heat a non-stick pan and pour batter to form pancakes.\n5. Cook until bubbles form, then flip and cook the other side.\n6. Serve warm with syrup or your favorite toppings.",
+      "category": "dessert",
+      "ingredients": ["2 eggs", "flour 50g", "sugar 20g", "baking powder 1 tb"],
+      "image": "/dummyPhotos/pancake.jpg",
+      "likes": 0,
+      "date": "2024-02-04"
+    },
+    {
+      "id": 4,
+      "title": "Spaghetti Carbonara",
+      "user": "2@mail.com",
+      "content": "1. Cook spaghetti in salted boiling water until al dente.\n2. In a bowl, whisk eggs, Parmesan cheese, salt, and pepper.\n3. Cook diced pancetta or bacon in a skillet until crispy.\n4. Drain the pasta, reserving some pasta water.\n5. Toss hot pasta with the egg mixture and pancetta, adding pasta water as needed.\n6. Serve immediately, topped with extra cheese.",
+      "category": "lunch, dinner",
+      "ingredients": ["spaghetti 300g", "eggs", "Parmesan cheese", "pancetta"],
+      "image": "/dummyPhotos/carbonara.jpg",
+      "likes": 0,
+      "date": "2024-02-15"
+    },
+    {
+      "id": 5,
+      "title": "Chocolate Chip Cookies",
+      "user": "2@mail.com",
+      "content": "1. Preheat the oven to 350°F (175°C).\n2. Cream butter, sugar, and brown sugar until light and fluffy.\n3. Mix in eggs and vanilla extract.\n4. Gradually add flour, baking soda, and salt. Stir in chocolate chips.\n5. Scoop dough onto a baking sheet and bake for 10-12 minutes.\n6. Let cool slightly before serving.",
+      "category": "dessert",
+      "ingredients": ["butter", "sugar", "brown sugar", "eggs", "vanilla", "flour", "chocolate chips"],
+      "image": "/dummyPhotos/choco.jpg",
+      "likes": 0,
+      "date": "2024-02-06"
+    },
+    {
+      "id": 6,
+      "title": "Avocado Toast",
+      "user": "t@mail.com",
+      "content": "1. Toast a slice of bread to your desired crispness.\n2. Mash a ripe avocado with salt, pepper, and a squeeze of lemon juice.\n3. Spread the mashed avocado onto the toast.\n4. Add toppings like a poached egg, sliced tomato, or chili flakes.\n5. Drizzle with olive oil for extra flavor.\n6. Enjoy immediately!",
+      "category": "breakfast, vegetarian",
+      "ingredients": ["bread", "ripe avocado", "lemon juice", "olive oil"],
+      "image": "/dummyPhotos/avocado.jpg",
+      "likes": 0,
+      "date": "2024-04-07"
+    },
+    {
+      "id": 7,
+      "title": "Homemade Pizza",
+      "user": "t@mail.com",
+      "content": "1. Preheat your oven to the highest temperature.\n2. Roll out pizza dough and place it on a baking tray.\n3. Spread tomato sauce evenly over the dough.\n4. Add your favorite toppings and shredded cheese.\n5. Bake in the oven for 10-12 minutes or until the crust is golden and crispy.\n6. Slice and serve hot.",
+      "category": "lunch, dinner",
+      "ingredients": ["pizza dough", "tomato sauce", "cheese", "toppings of choice"],
+      "image": "/dummyPhotos/pizza.jpg",
+      "likes": 0,
+      "date": "2024-08-08"
+    },
+    {
+      "id": 8,
+      "title": "Banana Smoothie",
+      "user": "2@mail.com",
+      "content": "1. Peel and slice a ripe banana.\n2. Add the banana, milk, yogurt, and honey to a blender.\n3. Add a handful of ice cubes for a cold, refreshing drink.\n4. Blend until smooth and creamy.\n5. Pour into a glass and garnish with a slice of banana.\n6. Serve immediately and enjoy!",
+      "category": "breakfast, dessert",
+      "ingredients": ["banana", "milk", "yogurt", "honey", "ice cubes"],
+      "image": "/dummyPhotos/shake.jpg",
+      "likes": 0,
+      "date": "2024-09-09"
+    }
+  ]
+}
