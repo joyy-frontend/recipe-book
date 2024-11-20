@@ -368,6 +368,107 @@ body,
   background-color: var(--light-orange); /* 호버 시 색상 변경 */
 }
 
+/* recipe detail */
+.recipe-content p, .recipe-meta p {
+  font-family: var(--main-font);
+}
+
+.recipe-name {
+  font-family: var(--sub-font);
+  font-size: 50px;
+  font-weight: 900;
+}
+
+.side-title {
+  font-family: var(--main-font);
+  font-weight: 700;
+  color: var(--light-green);
+}
+
+.bg-primary {
+  background-color: var(--light-green) !important;
+  font-family: var(--main-font);
+}
+/* comments */
+.recipe-content, .comments-section {
+  background-color: var(--bg-beige);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.comment-list {
+  max-height: 400px; /* 댓글 리스트의 최대 높이 설정 */
+  overflow-y: auto; /* 스크롤 가능하게 설정 */
+}
+
+.make-title, .ingredients-title, .comment-title {
+  font-family: var(--sub-font);
+  font-weight: 800;
+  color: var(--deep-orange);
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.comment {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative; /* 버튼 위치 조정을 위해 */
+}
+
+.comment p {
+  font-family: var(--main-font);
+  margin-bottom: 10px;
+}
+
+.comment .text-muted {
+  font-size: 0.9rem;
+}
+
+.comment textarea {
+  resize: none; /* 크기 조절 비활성화 */
+}
+
+.comment .btn-container {
+  display: flex;
+  justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
+  margin-top: 10px; /* 버튼과 댓글 내용 사이의 간격 */
+}
+
+.no-comments {
+  text-align: center;
+  font-style: italic;
+  color: var(--light-green);
+}
+
+.add-btn, .edit-co-btn {
+  background-color: var(--light-orange);
+}
+.add-btn:hover, .edit-co-btn:hover {
+  background-color: var(--deep-orange);
+}
+.delete-co-btn:hover {
+  background-color: #4c5e3f;
+}
+.edit-co-btn, .delete-co-btn {
+  width: 300px;
+  padding: 8px 16px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 auto;  
+}
+
+.delete-co-btn {
+  background-color: var(--light-green);
+}
+
 /* mypage */
 .recipe-card {
   text-decoration: none;
