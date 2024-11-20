@@ -369,7 +369,7 @@ body,
 }
 
 /* recipe detail */
-.recipe-content p, .recipe-meta p {
+.recipe-content-in p, .recipe-meta p {
   font-family: var(--main-font);
 }
 
@@ -390,7 +390,7 @@ body,
   font-family: var(--main-font);
 }
 /* comments */
-.recipe-content, .comments-section {
+.recipe-content-in, .comments-section {
   background-color: var(--bg-beige);
   border-radius: 10px;
   padding: 20px;

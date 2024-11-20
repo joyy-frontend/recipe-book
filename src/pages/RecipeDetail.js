@@ -168,7 +168,7 @@ export default function RecipeDetail() {
         </div>
 
         {/* How to Make Section */}
-        <div className="recipe-content">
+        <div className="recipe-content-in">
           <h3 className="make-title">How to make?</h3>
           <p style={{ whiteSpace: "pre-wrap" }}>{recipe.content}</p>
         </div>
