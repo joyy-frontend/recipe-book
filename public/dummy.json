@@ -1,9 +1,9 @@
 {
     "recipes": [
       {
-        "id": 100,
+        "id": 1,
         "title": "Spaghetti Carbonara",
-        "user": "admin@example.com",
+        "user": "t@mail.com",
         "content": "Boil pasta, cook bacon, mix eggs and cheese...",
         "category": "dinner",
         "ingredients": ["pasta", "bacon", "eggs", "cheese"],
@@ -12,9 +12,9 @@
         "date": "2024-01-01"
       },
       {
-        "id": 200,
+        "id": 2,
         "title": "Caesar Salad",
-        "user": "admin@example.com",
+        "user": "t@mail.com",
         "content": "Chop lettuce, add dressing, mix croutons...",
         "category": "salad",
         "ingredients": ["lettuce", "croutons", "parmesan", "dressing"],

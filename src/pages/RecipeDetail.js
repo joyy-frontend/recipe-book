@@ -36,9 +36,9 @@ export default function RecipeDetail() {
     if (currentUser) {
       setLoggedInUser(currentUser.email);
     }
-    // if (clickedRecipe) {
-    //   setUploadUser(currentRecipe.user);
-    // }
+    if (clickedRecipe) {
+      setUploadUser(currentRecipe.user);
+    }
   }, []);
 
   const handleAddComment = () => {
@@ -113,6 +113,8 @@ export default function RecipeDetail() {
     return <div className="container mt-5">Loading recipe details...</div>;
   }
 
+          //console.log(loggedInUser);
+          console.log(uploadedUser);
   return (
     <div className="container mt-5">
       <div className="recipe-detail">
@@ -129,6 +131,8 @@ export default function RecipeDetail() {
           <h1 className="recipe-name">{recipe.title}</h1>
           <p className="text-muted">Recipe by: {recipe.user}</p>
           <p className="text-muted">Date: {recipe.date}</p>
+          
+
           {loggedInUser === uploadedUser && (
             <button
               type="submit"
