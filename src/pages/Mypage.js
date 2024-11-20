@@ -3,7 +3,7 @@ import Formcomponent from "../components/Formcomponent";
 import defaultProfile from "../assets/images/default-profile.png";
 import defaultImage from "../assets/images/default.png";
 import "../Custom.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Mypage({ user, userChange, updateUser }) {
   const navigate = useNavigate();
@@ -193,12 +193,17 @@ export default function Mypage({ user, userChange, updateUser }) {
             </div>
           )}
         </section>
+
         <section className="recipes-section-green">
           <h4 className="section-title-green">Uploaded Recipes</h4>
           <div className="recipe-grid">
             {uploadedRecipes.length > 0 ? (
               uploadedRecipes.map((recipe) => (
-                <div key={recipe.id} className="recipe-card">
+                <Link
+                  key={recipe.id}
+                  to={`/recipes/${recipe.id}`}
+                  className="recipe-card"
+                >
                   <img
                     src={recipe.image ? recipe.image : defaultImage}
                     alt={recipe.title}
@@ -208,7 +213,7 @@ export default function Mypage({ user, userChange, updateUser }) {
                     <h4 className="recipe-title">{recipe.title}</h4>
                     <p className="recipe-description">{recipe.content}</p>
                   </div>
-                </div>
+                </Link>
               ))
             ) : (
               <div className="no-recipes">
@@ -224,11 +229,11 @@ export default function Mypage({ user, userChange, updateUser }) {
           <div className="recipe-grid">
             {likedRecipes.length > 0 ? (
               likedRecipes.map((recipe) => (
-                <div
-                key={recipe.id}
-                className="recipe-card"
-                onClick={() => navigate(`/recipes/${recipe.id}`)}
-              >
+                <Link
+                  key={recipe.id}
+                  to={`/recipes/${recipe.id}`}
+                  className="recipe-card"
+                >
                   <img
                     src={recipe.image ? recipe.image : defaultImage}
                     alt={recipe.title}
@@ -238,7 +243,7 @@ export default function Mypage({ user, userChange, updateUser }) {
                     <h4 className="recipe-title">{recipe.title}</h4>
                     <p className="recipe-description">{recipe.content}</p>
                   </div>
-                </div>
+                </Link>
               ))
             ) : (
               <div className="no-recipes">

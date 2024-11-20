@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import defaultImage from "../assets/images/default.png";
 import { useLocation } from "react-router-dom";
+import defaultImage from "../assets/images/default.png";
 import "../Custom.css";
 
 export default function RecipePost() {
@@ -23,6 +24,7 @@ export default function RecipePost() {
         user: '', 
         content: '', 
         category: '', 
+        ingredients: [], // Initialize as an empty array
         image: defaultImage,
         likes: 0, 
         date: ''
@@ -157,6 +159,35 @@ export default function RecipePost() {
                         value={recipe.user} 
                         readOnly
                     />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="ingredients" className="addform-label">Ingredients</label>
+                    <div className="input-group">
+                        <input 
+                            type="text" 
+                            className="addform-input" 
+                            placeholder="Add an ingredient"
+                            value={ingredientInput}
+                            onChange={(e) => setIngredientInput(e.target.value)}
+                        />
+                        <button type="button" className="tst-btn btn-success" onClick={handleAddIngredient}>
+                            Add
+                        </button>
+                    </div>
+                    <ul className="list-group">
+                        {Array.isArray(recipe.ingredients) && recipe.ingredients.map((ingredient, index) => (
+                            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                {ingredient}
+                                <button
+                                    type="button"
+                                    className="btn btn-sm btn-danger"
+                                    onClick={() => handleRemoveIngredient(ingredient)}
+                                >
+                                    Remove
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="content" className="addform-label">Content</label>
