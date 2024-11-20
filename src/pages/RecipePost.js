@@ -180,16 +180,16 @@ export default function RecipePost() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
-                    <div className="input-group mb-3">
+                    <label htmlFor="ingredients" className="addform-label">Ingredients</label>
+                    <div className="input-group">
                         <input 
                             type="text" 
-                            className="form-control" 
+                            className="addform-input" 
                             placeholder="Add an ingredient"
                             value={ingredientInput}
                             onChange={(e) => setIngredientInput(e.target.value)}
                         />
-                        <button type="button" className="btn btn-success" onClick={handleAddIngredient}>
+                        <button type="button" className="tst-btn btn-success" onClick={handleAddIngredient}>
                             Add
                         </button>
                     </div>
@@ -220,14 +220,14 @@ export default function RecipePost() {
                     ></textarea>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="category" className="form-label">Category</label>
+                    <label htmlFor="category" className="addform-label">Category</label>
                     <br />
                     <div className="btn-group-category" role="group" aria-label="Category Selector">
                         {categories.map((category) => (
                             <button
                                 key={category}
                                 type="button"
-                                className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'btn-primary' : 'btn-outline-primary'}`}
+                                className={`btn ${recipe.category.split(',').map(item => item.trim()).includes(category) ? 'addform-category-btn' : 'addform-category-outline-btn'}`}
                                 onClick={() => handleCategoryClick(category)}
                             >
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -236,13 +236,13 @@ export default function RecipePost() {
                     </div>  
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Date</label>
-                    <input type="date" className="form-control" id="date" value={date} readOnly />
+                    <label htmlFor="date" className="addform-label">Date</label>
+                    <input type="date" className="addform-input" id="date" value={date} readOnly />
                 </div>
              
                     <div className="mb-3">
-                        <label htmlFor="img" className="form-label">Image</label>
-                           <input type="file" className="form-control" id="img" accept="image/*" onChange={handleImageChange} />
+                        <label htmlFor="img" className="addform-label">Image</label>
+                           <input type="file" className="addform-input" id="img" accept="image/*" onChange={handleImageChange} />
                     </div>
              
                 {recipe.image && (
@@ -252,9 +252,9 @@ export default function RecipePost() {
                 )}
                 {
                     isEditStatus ? (
-                        <button type="submit" className="btn btn-primary">Update Recipe</button>
+                        <button type="submit" className="addform-btn">Update Recipe</button>
                     ) : (
-                        <button type="submit" className="btn btn-primary">Create Recipe</button>
+                        <button type="submit" className="addform-btn">Create Recipe</button>
                     )
                 }
                 {/* {

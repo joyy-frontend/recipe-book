@@ -36,9 +36,9 @@ export default function RecipeDetail() {
     if (currentUser) {
       setLoggedInUser(currentUser.email);
     }
-    if (clickedRecipe) {
-      setUploadUser(currentRecipe.user);
-    }
+    // if (clickedRecipe) {
+    //   setUploadUser(currentRecipe.user);
+    // }
   }, []);
 
   const handleAddComment = () => {
