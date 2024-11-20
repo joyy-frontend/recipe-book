@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../Custom.css";
 
 export default function RecipePost() {
@@ -7,6 +7,7 @@ export default function RecipePost() {
         "breakfast", "lunch", "dinner", "appetizer",
         "salad", "dessert", "vegetarian", "soup", "seafood"
     ];
+    const location = useLocation();
     const navigate = useNavigate();
     const [isAddStatus, setIsAddStatus] = useState(false);
     const [isEditStatus, setIsEditStatus] = useState(false);
@@ -119,9 +120,18 @@ export default function RecipePost() {
         }
         
         const today = new Date().toISOString().split("T")[0];
-    setDate(today); 
-    setRecipe((prev) => ({ ...prev, date: today })); 
-}, [recipeId]);
+        setDate(today); 
+        setRecipe((prev) => ({ ...prev, date: today })); 
+    }, [recipeId]);
+
+    useEffect(() => {
+        const isEditPage = /^\/recipes\/edit\/\d+$/.test(location.pathname);
+        if(isEditPage) {
+            setIsEditStatus(true);
+        } else {
+            setIsEditStatus(false);
+        }
+    }, [])
 
     return (
         <div className="container mt-5">
