@@ -110,30 +110,30 @@ export default function Home() {
                 <h2 className="categories-title">Latest Recipe</h2>
                 <div className='container py-5'>
                     <div className='row g-4'>
-                    {
-                        recipes.length > 0 ?
-                        recipes.map((recipe, idx) => (
-                            
-                            <Link to={`/recipes/${recipe.id}`} className="card h-100 text-decoration-none">
-                                <div className='col-md-4' key={recipe.id}>
-                                    <img 
-                                        src={recipe.image} 
-                                        alt={recipe.title} 
-                                        className="recipe-image" 
-                                    />
-                                    <div className='recipe-content'>
-                                        <h3 className="card-title">{recipe.title}</h3>
-                                        <p className="card-text">
-                                            <i className="fas fa-user me-2"></i>
-                                            Recipe by {recipe.user}
-                                        </p>
-                                        <p className="card-text">
-                                            <i className="fas fa-tag me-2"></i>
-                                            <strong>Category:</strong> {recipe.category}
-                                        </p>
-                                    </div>
+                        {recipes.length > 0 ?
+                            recipes.map((recipe, idx) => (
+                            <div className='col-md-4' key={recipe.id}>
+                                <div className='recipe-card'>
+                                    <Link to={`/recipes/${recipe.id}`} className="card h-100 text-decoration-none">
+                                        <img 
+                                            src={recipe.image} 
+                                            alt={recipe.title} 
+                                            className="recipe-image" 
+                                        />
+                                        <div className='recipe-content'>
+                                            <h3 className="card-title">{recipe.title}</h3>
+                                            <p className="card-text">
+                                                <i className="fas fa-user me-2"></i>
+                                                Recipe by {recipe.user}
+                                            </p>
+                                            <p className="card-text">
+                                                <i className="fas fa-tag me-2"></i>
+                                                <strong>Category:</strong> {recipe.category}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </div>
-                            </Link>
+                            </div>
                         )) :    
                             <div className="no-data">
                                 <i className="fas fa-search mb-3 d-block" style={{fontSize: "2rem"}}></i>
