@@ -126,7 +126,8 @@ const AllRecipes = ({ category, searchWord }) => {
         {[...filteredDummyRecipes, ...filteredLocalRecipes].map((recipe) => (
           <div className="col-md-4" key={recipe.id}>
             <div className="recipe-card">
-              <Link to={recipe.isDummy ? "#" : `/recipes/${recipe.id}`}>
+              {/* <Link to={recipe.isDummy ? "#" : `/recipes/${recipe.id}`}> */}
+              <Link to={`/recipes/${recipe.id}`}>
                 <img
                   src={recipe.image ? recipe.image : logoImage}
                   alt={recipe.title}
