@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../Custom.css";
 import { useLocation } from "react-router-dom";
+import defaultImage from "../assets/images/default.png"
 
 export default function RecipePost() {
     const location = useLocation();
@@ -23,7 +24,7 @@ export default function RecipePost() {
         content: '', 
         category: '', 
         ingredients: [], // Initialize as an empty array
-        image: '',
+        image: defaultImage,
         likes: 0, 
         date: ''
     });
@@ -190,16 +191,16 @@ export default function RecipePost() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="ingredients" className="form-label">Ingredients</label>
-                    <div className="input-group mb-3">
+                    <label htmlFor="ingredients" className="addform-label">Ingredients</label>
+                    <div className="input-group">
                         <input 
                             type="text" 
-                            className="form-control" 
+                            className="addform-input" 
                             placeholder="Add an ingredient"
                             value={ingredientInput}
                             onChange={(e) => setIngredientInput(e.target.value)}
                         />
-                        <button type="button" className="btn btn-success" onClick={handleAddIngredient}>
+                        <button type="button" className="tst-btn btn-success" onClick={handleAddIngredient}>
                             Add
                         </button>
                     </div>
